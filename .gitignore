@@ -73,3 +73,6 @@ htmlcov/
 # Cursor/Specstory history (contains sensitive data)
 .specstory/
 .cursorindexingignore
+
+# Local Netlify folder
+.netlify
