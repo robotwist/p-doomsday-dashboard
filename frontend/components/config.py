@@ -7,22 +7,22 @@ import os
 API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 # ===== UI ELEMENTS =====
-# Simple emoji mappings for different contexts (no external icon dependencies)
+# Text-based visual markers
 UI_ELEMENTS = {
-    'skull': '💀',
-    'warning': '⚠️',
-    'success': '✅',
-    'doom': '⚡',
-    'share': '📤',
-    'info': 'ℹ️',
-    'book': '📚',
-    'graduation': '🎓',
-    'settings': '⚙️',
-    'trending-up': '📈',
-    'heart': '❤️',
-    'users': '👥',
-    'shield': '🛡️',
-    'target': '🎯',
+    'skull': '[!]',
+    'warning': '[WARNING]',
+    'success': '[OK]',
+    'doom': '[ALERT]',
+    'share': '[SHARE]',
+    'info': '[INFO]',
+    'book': '[BOOK]',
+    'graduation': '[GRAD]',
+    'settings': '[SETTINGS]',
+    'trending-up': '[UP]',
+    'heart': '[SUPPORT]',
+    'users': '[USERS]',
+    'shield': '[SHIELD]',
+    'target': '[TARGET]',
 }
 
 # ===== CONSTANTS =====
@@ -45,7 +45,6 @@ COLORS = {
 FONTS = {
     'primary': "'Courier New', 'Courier', 'Lucida Console', monospace",
     'heading': "'Impact', 'Arial Black', sans-serif",
-    'icons': "'Lucide Icons', sans-serif",
 }
 
 SIZES = {

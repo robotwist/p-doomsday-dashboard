@@ -20,7 +20,7 @@ ICONS = UI_ELEMENTS
 # ===== SETUP =====
 st.set_page_config(
     page_title="Job Doom Calculator",
-    page_icon="🤍💀",
+    page_icon="⬛",
     layout="wide"
 )
 
@@ -31,14 +31,14 @@ st.markdown(get_css_styles(), unsafe_allow_html=True)
 
 # ===== MAIN INTERFACE TABS =====
 tab1, tab2, tab3 = st.tabs([
-    f"⚡ **DOOM CALCULATOR**",
-    f"🎓 **RETRAIN ME**",
-    f"🛡️ **SURVIVAL GUIDE**"
+    "DOOM CALCULATOR",
+    "RETRAIN ME",
+    "SURVIVAL GUIDE"
 ])
 
 with tab1:
     # Header - Brutalist style
-    st.markdown(f'<div class="skull-title">💀 JOB DOOM CALCULATOR</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="skull-title">JOB DOOM CALCULATOR</div>', unsafe_allow_html=True)
     st.markdown(f'<p style="color: {COLORS["text_primary"]}; font-family: {FONTS["primary"]}; font-size: 1.1em; margin-top: 10px;">*Find out how doomed you are (scientifically)*</p>', unsafe_allow_html=True)
 
     # Sidebar
@@ -62,7 +62,7 @@ with st.sidebar:
 
     # Resources section with links
     st.markdown("""
-    **🎓 Career Pivots & Retraining:**
+    **Career Pivots & Retraining:**
     - [Coursera](https://www.coursera.org) - Online courses and certifications
     - [edX](https://www.edx.org) - University-level courses from MIT, Harvard, etc.
     - [LinkedIn Learning](https://www.linkedin.com/learning) - Professional development
@@ -127,13 +127,13 @@ if analyze_btn and job_title:
                 risk = data["risk_score"]
                 if risk > 60:
                     doom_class = "doom-high"
-                    doom_icon = "💀"
+                    doom_icon = "[!]"
                 elif risk > 35:
                     doom_class = "doom-medium"
-                    doom_icon = "⚠️"
+                    doom_icon = "[WARNING]"
                 else:
                     doom_class = "doom-low"
-                    doom_icon = "✅"
+                    doom_icon = "[OK]"
 
                 st.markdown(f"""
                 <div class="big-doom {doom_class}">
@@ -177,12 +177,12 @@ if analyze_btn and job_title:
 
                     <script>
                     function showTotalDoom() {{
-                        alert('TOTAL DOOM ACHIEVED! \\n\\nYour job is 100% doomed to automation! \\n\\nTime to embrace the future:\\n• Learn new skills 📚\\n• Explore creative fields 🎨\\n• Master emerging technologies 💻\\n\\nThe machines have won... adapt or be automated!');
+                        alert('TOTAL DOOM ACHIEVED! \\n\\nYour job is 100% doomed to automation! \\n\\nTime to embrace the future:\\n- Learn new skills\\n- Explore creative fields\\n- Master emerging technologies\\n\\nThe machines have won... adapt or be automated!');
                     }}
                     </script>
                     """
 
-                st.markdown("### ⚡ DOOM METER")
+                st.markdown("### DOOM METER")
                 st.markdown(create_doom_meter(data), unsafe_allow_html=True)
 
                 # Share button
@@ -203,7 +203,7 @@ if analyze_btn and job_title:
                 # Career pivots and retraining
                 with st.expander(f"{UI_ELEMENTS['warning']} CAREER PIVOTS & RETRAINING"):
                     st.markdown("""
-                    **🎓 Online Learning Platforms:**
+                    **Online Learning Platforms:**
                     - **[Coursera](https://www.coursera.org)** - Thousands of courses from top universities
                     - **[edX](https://www.edx.org)** - Free courses from MIT, Harvard, Berkeley
                     - **[LinkedIn Learning](https://www.linkedin.com/learning)** - Professional skills development
@@ -221,7 +221,7 @@ if analyze_btn and job_title:
 
                 with st.expander(f"{UI_ELEMENTS['doom']} FUTURE-PROOF SKILLS"):
                     st.markdown("""
-                    **🤖 High-Demand Skills:**
+                    **High-Demand Skills:**
                     - **[AI Ethics & Policy](https://www.coursera.org/specializations/ai-ethics)** - Understand AI governance
                     - **[Data Science Fundamentals](https://www.coursera.org/specializations/data-science)** - Master data analysis
                     - **[Digital Marketing](https://www.coursera.org/specializations/digital-marketing)** - Modern marketing skills
@@ -272,7 +272,7 @@ if analyze_btn and job_title:
 
                 # Automation-Compatible Roles
                 with st.expander(f"{UI_ELEMENTS['settings']} AUTOMATION-COMPATIBLE ROLES"):
-                    st.markdown("**🤖 Jobs that work WITH automation, not against it:**")
+                    st.markdown("**Jobs that work WITH automation, not against it:**")
 
                     compatible_roles = [
                         {
@@ -405,16 +405,16 @@ with tab2:
                 st.markdown(f"- {skill}")
 
         with col2:
-            st.markdown(f"**🎯 Skills to Learn for {target_role}:**")
+            st.markdown(f"**Skills to Learn for {target_role}:**")
             for skill in gap_data["gap_skills"]:
                 st.markdown(f"- {skill}")
 
         st.markdown("---")
-        st.markdown("### 📚 **RETRAINING PROGRAMS**")
+        st.markdown("### RETRAINING PROGRAMS")
 
         # Online Programs
         with st.expander(f"{UI_ELEMENTS['book']} ONLINE COURSES & CERTIFICATIONS"):
-            st.markdown("**🎓 Structured Learning Paths:**")
+            st.markdown("**Structured Learning Paths:**")
 
             programs = [
                 {
@@ -533,7 +533,7 @@ with tab3:
         st.markdown("**Universal Basic Income & Social Safety Nets:**")
 
         st.markdown("""
-        **🇺🇸 U.S. Government Benefits:**
+        **U.S. Government Benefits:**
         """)
 
         # Government benefits
@@ -602,10 +602,10 @@ with tab3:
 
     # Existential Toolkit
     with st.expander(f"{UI_ELEMENTS['heart']} EXISTENTIAL TOOLKIT"):
-        st.markdown("**🧘 Mental Health & Spiritual Resources:**")
+        st.markdown("**Mental Health & Spiritual Resources:**")
 
         st.markdown("""
-        **🚨 Crisis Support (24/7):**
+        **Crisis Support (24/7):**
         """)
 
         # Crisis resources
@@ -638,11 +638,11 @@ with tab3:
             st.markdown("")
 
         st.markdown("""
-        **💭 Spiritual & Philosophical Resources:**
+        **Spiritual & Philosophical Resources:**
         """)
 
         st.markdown("""
-        **📖 Biblical Resources:**
+        **Biblical Resources:**
         """)
 
         biblical_resources = [
@@ -665,7 +665,7 @@ with tab3:
             st.markdown("")
 
         st.markdown("""
-        **🏛️ Local Church Finder:**
+        **Local Church Finder:**
         """)
 
         st.markdown("""
@@ -710,7 +710,7 @@ with tab3:
             st.markdown("")
 
         st.markdown("""
-        **💡 Philosophical Perspective:**
+        **Philosophical Perspective:**
 
         "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
 
@@ -721,7 +721,7 @@ with tab3:
 st.markdown("---")
 st.markdown(f"""
 <div style="text-align: center; padding: 25px; background: {COLORS["bg_panel"]}; border-top: 5px solid {COLORS["border_heavy"]};">
-    <h3 style="color: {COLORS["text_primary"]}; font-family: {FONTS["heading"]}; font-weight: 900; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.05em;">📊 DATA SOURCES</h3>
+    <h3 style="color: {COLORS["text_primary"]}; font-family: {FONTS["heading"]}; font-weight: 900; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.05em;">DATA SOURCES</h3>
     <div style="color: {COLORS["text_primary"]}; font-family: {FONTS["primary"]}; line-height: 1.6; max-width: 600px; margin: 0 auto;">
         <p>• O*NET Occupation Database</p>
         <p>• Frey & Osborne (2013) Research</p>

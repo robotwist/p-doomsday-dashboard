@@ -35,7 +35,7 @@ def create_doom_meter(data):
 
     <script>
     function showTotalDoom() {{
-        alert('🚨 TOTAL DOOM ACHIEVED! 🚨\\n\\nYour job is 100% doomed to automation! 🤖💀\\n\\nTime to embrace the future:\\n• Learn new skills 📚\\n• Explore creative fields 🎨\\n• Master emerging technologies 💻\\n\\nThe machines have won... adapt or be automated!');
+        alert('TOTAL DOOM ACHIEVED!\\n\\nYour job is 100% doomed to automation!\\n\\nTime to embrace the future:\\n- Learn new skills\\n- Explore creative fields\\n- Master emerging technologies\\n\\nThe machines have won... adapt or be automated!');
     }}
     </script>
     """

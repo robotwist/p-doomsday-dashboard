@@ -7,7 +7,7 @@ This project uses a **hybrid deployment strategy**:
 - **Streamlit application** → Streamlit Community Cloud (frontend/)
 - **Backend API** → Heroku/Railway/Render (backend/)
 
-## 🌐 Deploy Landing Page to Netlify
+## Deploy Landing Page to Netlify
 
 ### Option 1: Netlify CLI (Interactive)
 
@@ -41,7 +41,7 @@ netlify deploy --prod --dir=public
 2. Drag the `public` folder from your project
 3. Netlify will deploy instantly
 
-## 🚀 Deploy Streamlit App to Streamlit Community Cloud
+## Deploy Streamlit App to Streamlit Community Cloud
 
 ### Prerequisites
 - GitHub repository must be public or you need Streamlit Cloud Pro
@@ -69,7 +69,7 @@ netlify deploy --prod --dir=public
 - Streamlit Cloud handles all server management
 - Auto-deploys on git push
 
-## 🔧 Deploy Backend API
+## Deploy Backend API
 
 ### Option 1: Heroku
 
@@ -125,7 +125,7 @@ git subtree push --prefix backend heroku main
    ```
 6. Create Web Service
 
-## 🔗 Connect Everything
+## Connect Everything
 
 After deploying all components, update the URLs:
 
@@ -154,7 +154,7 @@ git commit -m "Update production URLs"
 git push origin main
 ```
 
-## 🎯 Quick Deploy Commands
+## Quick Deploy Commands
 
 ```bash
 # Netlify (static landing page)
@@ -169,7 +169,7 @@ cd backend
 git push heroku main  # if already set up
 ```
 
-## 📊 Deployment Checklist
+## Deployment Checklist
 
 - [ ] Backend API deployed and accessible
 - [ ] Frontend Streamlit app deployed
@@ -181,7 +181,7 @@ git push heroku main  # if already set up
 - [ ] GitHub repository up to date
 - [ ] Custom domains configured (optional)
 
-## 🔒 Environment Variables Summary
+## Environment Variables Summary
 
 ### Backend (.env)
 ```bash
@@ -194,7 +194,7 @@ PORT=8000
 API_URL = "https://your-backend-api.herokuapp.com"
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### "CORS error" in browser console
 - Check `ALLOWED_ORIGINS` in backend includes your frontend URL
@@ -215,7 +215,7 @@ API_URL = "https://your-backend-api.herokuapp.com"
 - Verify redirect URLs are correct
 - Clear browser cache
 
-## 📝 Notes
+## Notes
 
 - Netlify is free for static sites with generous bandwidth
 - Streamlit Community Cloud is free for public GitHub repos
@@ -223,7 +223,7 @@ API_URL = "https://your-backend-api.herokuapp.com"
 - Always use HTTPS in production for security
 - Consider adding authentication for sensitive features
 
-## 🔗 Useful Links
+## Useful Links
 
 - **Netlify Docs**: https://docs.netlify.com
 - **Streamlit Docs**: https://docs.streamlit.io/streamlit-community-cloud

@@ -2,11 +2,11 @@
 
 A brutalist web application that calculates your job's automation risk with dark humor and practical survival resources.
 
-## 🎯 Overview
+## Overview
 
 The Job Doom Calculator analyzes job automation risk using data-driven metrics, provides career pivot suggestions, retraining resources, and survival guides for the automated future. Built with a brutal but refined aesthetic and a subtle playful tone.
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 p-doomsday-dashboard/
@@ -34,7 +34,7 @@ p-doomsday-dashboard/
 └── README.md
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Backend (FastAPI)
 
@@ -60,7 +60,7 @@ streamlit run app.py
 
 The web app will open at `http://localhost:8501`
 
-## 📊 Features
+## Features
 
 ### Core Functionality
 - **Job Risk Analysis**: Calculate automation risk scores (0-100%)
@@ -91,7 +91,7 @@ The web app will open at `http://localhost:8501`
 - **Spiritual Resources**: Biblical verses, local church finder via geolocation
 - **Nonreligious Options**: Meditation apps and counseling resources
 
-## 🎨 Design Philosophy
+## Design Philosophy
 
 ### Brutalist Aesthetic
 - **Typography**: Courier New (primary), Impact (headings), Space Grotesk (accents)
@@ -100,12 +100,12 @@ The web app will open at `http://localhost:8501`
 - **Tone**: Brutal but refined, pragmatic yet subtly playful
 
 ### UI Elements
-- Simple emojis for visual markers (no icon libraries)
+- Text-based visual markers
 - Custom DOOM meter with color-coded progress
 - Interactive "TOTAL DOOM" alert for 100% automation scores
 - Social sharing functionality
 
-## 🔧 Technology Stack
+## Technology Stack
 
 ### Backend
 - **FastAPI**: Modern, fast web framework
@@ -121,7 +121,7 @@ The web app will open at `http://localhost:8501`
 - **Requests**: API communication
 - **Custom CSS**: Brutalist design implementation
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### `GET /`
 Health check and welcome message
@@ -169,7 +169,7 @@ Analyze job automation risk
 ### `GET /jobs`
 List all available jobs in the database
 
-## 🗄️ Sample Data
+## Sample Data
 
 The application currently includes 5 sample jobs:
 - **Software Engineer** (45.2% risk)
@@ -178,7 +178,7 @@ The application currently includes 5 sample jobs:
 - **Data Analyst** (62.3% risk)
 - **Mental Health Therapist** (12.1% risk)
 
-## 🔒 Security & Configuration
+## Security & Configuration
 
 ### Environment Variables
 
@@ -202,14 +202,14 @@ API_URL=http://localhost:8000
 - `.specstory/` (contains sensitive session data)
 - `.cursorindexingignore`
 
-## 📈 Data Sources
+## Data Sources
 
 - **O*NET Database**: Occupation-level task and skill data
 - **Frey & Osborne (2013)**: "The Future of Employment" research
 - **Semantic similarity**: Skill vector embeddings for job matching
 - **Manual curation**: Tech threat identification and doom messaging
 
-## 🚧 Future Enhancements
+## Future Enhancements
 
 ### Short Term
 - [ ] Add 50+ more job titles
@@ -229,7 +229,7 @@ API_URL=http://localhost:8000
 - [ ] Mobile app version
 - [ ] API access for third-party integrations
 
-## 🌐 Deployment
+## Deployment
 
 ### Backend (Heroku/Railway/Render)
 ```bash
@@ -247,7 +247,7 @@ API_URL=https://your-backend-domain.com
 # Deploy using platform-specific methods
 ```
 
-## 🤝 Contributing
+## Contributing
 
 This is a solo project, but if you want to fork and extend:
 
@@ -257,18 +257,18 @@ This is a solo project, but if you want to fork and extend:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is open source and available under the MIT License.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Frey & Osborne** for foundational automation research
 - **O*NET** for comprehensive occupation data
 - **OpenAI** for AI discussion and ideation
 - **The brutalist design movement** for aesthetic inspiration
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 This tool is for **informational and entertainment purposes only**. Automation risk scores are based on research and algorithms but should not be considered financial, career, or life advice. Always consult with qualified professionals for career planning decisions.
 
@@ -276,4 +276,4 @@ This tool is for **informational and entertainment purposes only**. Automation r
 
 **Built with determination and dark humor by [Rob Wistrand](https://github.com/robotwist)**
 
-*"The future is automated. Are you ready?"* 💀
+*"The future is automated. Are you ready?"*
