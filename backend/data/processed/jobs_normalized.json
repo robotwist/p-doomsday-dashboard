@@ -1,0 +1,178 @@
+{
+  "software_engineer": {
+    "title": "Software Engineer",
+    "risk_score": 45.2,
+    "onet_code": "15-1252.00",
+    "tasks": {
+      "automatable": [
+        "Write boilerplate code",
+        "Debug syntax errors",
+        "Write unit tests"
+      ],
+      "human_required": [
+        "System architecture",
+        "Stakeholder communication",
+        "Creative problem solving"
+      ]
+    },
+    "skills": [
+      "Python",
+      "Algorithms",
+      "System Design",
+      "Communication"
+    ],
+    "tech_threats": [
+      "GitHub Copilot",
+      "GPT-4",
+      "AutoML platforms"
+    ],
+    "skill_vector": [
+      0.8,
+      0.9,
+      0.7,
+      0.6,
+      0.5
+    ]
+  },
+  "truck_driver": {
+    "title": "Truck Driver",
+    "risk_score": 79.0,
+    "onet_code": "53-3032.00",
+    "tasks": {
+      "automatable": [
+        "Highway driving",
+        "Route planning",
+        "Fuel monitoring"
+      ],
+      "human_required": [
+        "Loading/unloading",
+        "Customer interaction",
+        "Emergency handling"
+      ]
+    },
+    "skills": [
+      "Driving",
+      "Navigation",
+      "Vehicle Maintenance",
+      "Time Management"
+    ],
+    "tech_threats": [
+      "Tesla Semi",
+      "Waymo",
+      "TuSimple autonomous trucks"
+    ],
+    "skill_vector": [
+      0.3,
+      0.2,
+      0.6,
+      0.7,
+      0.4
+    ]
+  },
+  "nurse": {
+    "title": "Registered Nurse",
+    "risk_score": 18.5,
+    "onet_code": "29-1141.00",
+    "tasks": {
+      "automatable": [
+        "Vital signs monitoring",
+        "Medication scheduling",
+        "Basic diagnostics"
+      ],
+      "human_required": [
+        "Patient comfort",
+        "Family communication",
+        "Complex care decisions"
+      ]
+    },
+    "skills": [
+      "Patient Care",
+      "Medical Knowledge",
+      "Empathy",
+      "Critical Thinking"
+    ],
+    "tech_threats": [
+      "AI diagnostics",
+      "Automated IV systems",
+      "Robot nurses"
+    ],
+    "skill_vector": [
+      0.2,
+      0.4,
+      0.9,
+      0.8,
+      0.7
+    ]
+  },
+  "data_analyst": {
+    "title": "Data Analyst",
+    "risk_score": 62.3,
+    "onet_code": "15-2051.00",
+    "tasks": {
+      "automatable": [
+        "Data cleaning",
+        "Basic visualizations",
+        "Standard reports"
+      ],
+      "human_required": [
+        "Strategic insights",
+        "Stakeholder storytelling",
+        "Anomaly investigation"
+      ]
+    },
+    "skills": [
+      "SQL",
+      "Python",
+      "Statistics",
+      "Business Acumen",
+      "Communication"
+    ],
+    "tech_threats": [
+      "Power BI Copilot",
+      "AutoML",
+      "GPT-4 Data Analyst"
+    ],
+    "skill_vector": [
+      0.7,
+      0.8,
+      0.6,
+      0.5,
+      0.6
+    ]
+  },
+  "therapist": {
+    "title": "Mental Health Therapist",
+    "risk_score": 12.1,
+    "onet_code": "21-1014.00",
+    "tasks": {
+      "automatable": [
+        "Appointment scheduling",
+        "Session notes",
+        "Resource recommendations"
+      ],
+      "human_required": [
+        "Building trust",
+        "Reading emotional nuance",
+        "Crisis intervention"
+      ]
+    },
+    "skills": [
+      "Active Listening",
+      "Empathy",
+      "Psychology",
+      "Therapy Techniques"
+    ],
+    "tech_threats": [
+      "Woebot",
+      "Replika",
+      "AI mental health chatbots"
+    ],
+    "skill_vector": [
+      0.1,
+      0.3,
+      0.95,
+      0.9,
+      0.85
+    ]
+  }
+}
