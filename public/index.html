@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Doom Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', 'Courier Prime', monospace;
+            background-color: #F5F5DC;
+            color: #000000;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            border: 5px solid #000000;
+            padding: 30px;
+            background: #FFFFFF;
+            box-shadow: 12px 12px 0px #000000;
+        }
+
+        h1 {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 50px 0;
+            padding: 40px;
+            border: 4px solid #000000;
+            background: #FFE4B5;
+            box-shadow: 8px 8px 0px #000000;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #DC143C;
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 20px 40px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            border: 4px solid #000000;
+            box-shadow: 6px 6px 0px #000000;
+            transition: all 0.2s ease;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .cta-button:hover {
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0px #000000;
+        }
+
+        .features {
+            margin: 50px 0;
+        }
+
+        .feature {
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 3px solid #000000;
+            background: #FFFFFF;
+            box-shadow: 6px 6px 0px #000000;
+        }
+
+        .feature h3 {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            color: #DC143C;
+        }
+
+        .warning {
+            background: #FFE4B5;
+            border: 3px solid #FF8C00;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 4px solid #000000;
+            background: #E8E8D0;
+            margin-top: 60px;
+        }
+
+        .skull {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-button {
+                font-size: 1.1rem;
+                padding: 15px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="skull">💀</span>
+            <h1>Job Doom Calculator</h1>
+            <p class="subtitle">Calculate Your Automation Risk</p>
+        </header>
+
+        <div class="warning">
+            ⚠️ The robots are coming. Are you ready? ⚠️
+        </div>
+
+        <div class="cta-section">
+            <h2 style="margin-bottom: 20px; font-family: 'Impact', sans-serif; text-transform: uppercase;">Find Out If You're Doomed</h2>
+            <p style="margin-bottom: 30px; font-size: 1.1rem;">Get your job's automation risk score in seconds.</p>
+            <a href="https://p-doomsday-dashboard.streamlit.app" class="cta-button">
+                🔮 Calculate Your Doom
+            </a>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h3>📊 Data-Driven Risk Analysis</h3>
+                <p>We use real occupation data and AI research to calculate your job's automation risk. No vibes, just facts (and a little dark humor).</p>
+            </div>
+
+            <div class="feature">
+                <h3>🚪 Career Pivot Suggestions</h3>
+                <p>Get personalized recommendations for safer careers based on your current skills and experience.</p>
+            </div>
+
+            <div class="feature">
+                <h3>📚 Retraining Resources</h3>
+                <p>Access curated learning paths, online courses, and government programs to future-proof your career.</p>
+            </div>
+
+            <div class="feature">
+                <h3>🛡️ Survival Guide</h3>
+                <p>From UBI research to crisis support, we've got practical resources for navigating the automated future.</p>
+            </div>
+        </div>
+
+        <div class="warning" style="background: #F5F5DC; border-color: #000000;">
+            <p style="font-size: 0.9rem; text-transform: none; font-weight: 400;">
+                This tool is for informational and entertainment purposes only. 
+                Not financial or career advice. Consult qualified professionals for serious decisions.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Built with determination and dark humor</strong></p>
+        <p style="margin-top: 10px;">
+            <a href="https://github.com/robotwist/p-doomsday-dashboard" 
+               style="color: #DC143C; text-decoration: none; font-weight: 700;">
+                View on GitHub
+            </a>
+        </p>
+    </footer>
+</body>
+</html>
+

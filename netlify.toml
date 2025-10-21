@@ -1,0 +1,24 @@
+[build]
+  publish = "public"
+  command = "echo 'No build step required for static site'"
+
+[[redirects]]
+  from = "/app"
+  to = "https://p-doomsday-dashboard.streamlit.app"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/calculator"
+  to = "https://p-doomsday-dashboard.streamlit.app"
+  status = 302
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
