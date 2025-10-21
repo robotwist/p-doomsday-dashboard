@@ -1,68 +1,21 @@
+"""
+Job Doom Calculator - Main Application
+A comprehensive survival guide for the automation age
+"""
 import streamlit as st
 import requests
 import plotly.graph_objects as go
 import plotly.express as px
+import os
 
-# ===== CONFIGURATION =====
-API_URL = "http://localhost:8000"
+# Import components
+from components.config import API_URL, UI_ELEMENTS, COLORS, FONTS, SIZES
+from components.styles import get_css_styles
+from components.doom_meter import create_doom_meter
+from components.resources import create_resources_section, create_data_sources_footer
 
-# ===== LUCIDE ICONS =====
-def lucide_icon(name, size="1em", **kwargs):
-    """Generate Lucide icon HTML"""
-    style = f"width: {size}; height: {size}; vertical-align: middle; margin-right: 0.5em;"
-    if kwargs.get('class_'):
-        style += f" {kwargs['class_']}"
-    return f'<i data-lucide="{name}" style="{style}"></i>'
-
-# Icon mappings for different contexts
-ICONS = {
-    'skull': 'skull',
-    'warning': 'alert-triangle',
-    'success': 'check-circle',
-    'doom': 'zap',
-    'share': 'share-2',
-    'info': 'info',
-    'book': 'book-open',
-    'graduation': 'graduation-cap',
-    'settings': 'settings',
-    'trending-up': 'trending-up',
-    'heart': 'heart',
-    'users': 'users',
-    'shield': 'shield',
-    'target': 'target',
-}
-
-# ===== CONSTANTS =====
-# Brutalist high-contrast color scheme
-COLORS = {
-    'primary_red': '#CC0000',      # Bold red
-    'warning_orange': '#FF6B35',   # Bright warning orange
-    'success_green': '#00AA44',    # Bold green
-    'doom_critical': '#AA0000',    # Darker red for critical
-    'text_primary': '#000000',     # Pure black for maximum contrast
-    'text_secondary': '#333333',   # Dark gray
-    'text_white': '#FFFFFF',       # Pure white
-    'bg_primary': '#F5F5F5',       # Light gray background
-    'bg_secondary': '#E0E0E0',     # Medium gray
-    'bg_dark': '#CCCCCC',          # Darker gray for accents
-    'bg_panel': '#FFFFFF',         # White panels
-    'border_heavy': '#000000',     # Black borders
-    'shadow': 'rgba(0, 0, 0, 0.3)',
-}
-
-FONTS = {
-    'primary': "'Courier New', 'Courier', 'Lucida Console', monospace",  # Typewriter/brutalist font
-    'heading': "'Impact', 'Arial Black', sans-serif",  # Bold, blocky heading font
-    'icons': "'Lucide Icons', sans-serif",  # Lucide icon font
-}
-
-SIZES = {
-    'icon_small': '1em',
-    'icon_medium': '2em',
-    'icon_large': '3em',
-    'progress_height': '40px',
-    'border_radius': '15px',
-}
+# Alias for backward compatibility
+ICONS = UI_ELEMENTS
 
 # ===== SETUP =====
 st.set_page_config(
@@ -71,209 +24,21 @@ st.set_page_config(
     layout="wide"
 )
 
-# ===== STYLES =====
-def get_css_styles():
-    """Generate clean, maintainable CSS using constants"""
-    return f"""
-    <style>
-        @import url('https://unpkg.com/lucide@latest/dist/umd/lucide.js');
-
-        /* Brutalist high-contrast body */
-        body {{
-            font-family: {FONTS['primary']} !important;
-            background: {COLORS['bg_primary']} !important;
-            color: {COLORS['text_primary']} !important;
-        }}
-
-        /* Headers with brutalist styling */
-        h1, h2, h3, h4, h5, h6 {{
-            font-family: {FONTS['heading']} !important;
-            font-weight: 900 !important;
-            letter-spacing: -0.02em !important;
-            text-transform: uppercase !important;
-        }}
-
-        /* Content elements */
-        .stMarkdown p, .stText, .stCaption {{
-            font-family: {FONTS['primary']} !important;
-            line-height: 1.6 !important;
-        }}
-
-        /* Doom level indicators - brutalist style */
-        .big-doom {{
-            font-family: {FONTS['heading']} !important;
-            font-size: 3.5rem !important;
-            font-weight: 900 !important;
-            text-align: center !important;
-            text-shadow: 3px 3px 0px {COLORS['text_primary']} !important;
-            letter-spacing: -0.05em !important;
-        }}
-
-        .doom-high {{ color: {COLORS['primary_red']} !important; }}
-        .doom-medium {{ color: {COLORS['warning_orange']} !important; }}
-        .doom-low {{ color: {COLORS['success_green']} !important; }}
-
-        /* Buttons - brutalist style */
-        .stButton>button {{
-            width: 100% !important;
-            background: {COLORS['primary_red']} !important;
-            color: {COLORS['text_white']} !important;
-            font-family: {FONTS['heading']} !important;
-            font-weight: 900 !important;
-            font-size: 1.2em !important;
-            border: 3px solid {COLORS['border_heavy']} !important;
-            border-radius: 0px !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.1em !important;
-            box-shadow: 5px 5px 0px {COLORS['text_primary']} !important;
-            transition: all 0.2s ease !important;
-        }}
-
-        .stButton>button:hover {{
-            transform: translate(-2px, -2px) !important;
-            box-shadow: 7px 7px 0px {COLORS['text_primary']} !important;
-        }}
-
-        /* Title styling - brutalist with proper contrast */
-        .skull-title {{
-            font-family: {FONTS['heading']} !important;
-            font-size: 2.5rem !important;
-            font-weight: 900 !important;
-            margin-bottom: 1rem !important;
-            text-transform: uppercase !important;
-            letter-spacing: -0.02em !important;
-            color: {COLORS['text_primary']} !important;
-            text-shadow: 2px 2px 0px {COLORS['bg_primary']} !important;
-            background: {COLORS['bg_panel']} !important;
-            padding: 15px 20px !important;
-            border: 3px solid {COLORS['border_heavy']} !important;
-            border-radius: 0px !important;
-            display: inline-block !important;
-        }}
-
-        /* DOOM meter - brutalist style */
-        .doom-button {{
-            background: {COLORS['primary_red']} !important;
-            color: {COLORS['text_white']} !important;
-            border: 4px solid {COLORS['border_heavy']} !important;
-            border-radius: 0px !important;
-            padding: 20px 40px !important;
-            cursor: pointer !important;
-            font-family: {FONTS['heading']} !important;
-            font-weight: 900 !important;
-            font-size: 1.2em !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.1em !important;
-            box-shadow: 8px 8px 0px {COLORS['text_primary']} !important;
-            transition: all 0.2s ease !important;
-        }}
-
-        .doom-button:hover {{
-            transform: translate(-3px, -3px) !important;
-            box-shadow: 11px 11px 0px {COLORS['text_primary']} !important;
-        }}
-
-        .doom-button-disabled {{
-            background: {COLORS['bg_dark']} !important;
-            color: {COLORS['text_secondary']} !important;
-            border: 4px solid {COLORS['text_secondary']} !important;
-            border-radius: 0px !important;
-            padding: 20px 40px !important;
-            font-family: {FONTS['heading']} !important;
-            font-weight: 900 !important;
-            font-size: 1.2em !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.1em !important;
-            cursor: not-allowed !important;
-        }}
-
-        /* Sidebar styling */
-        .stSidebar {{
-            background: {COLORS['bg_panel']} !important;
-            border-right: 5px solid {COLORS['border_heavy']} !important;
-            color: {COLORS['text_primary']} !important;
-        }}
-
-        /* Sidebar content styling */
-        .stSidebar .stMarkdown, .stSidebar .stText, .stSidebar p {{
-            color: {COLORS['text_primary']} !important;
-        }}
-
-        /* Main content area - ensure proper contrast */
-        .stMain {{
-            background: {COLORS['bg_primary']} !important;
-            color: {COLORS['text_primary']} !important;
-        }}
-
-        /* Ensure all text has proper contrast */
-        .stMarkdown, .stText, .stCaption, p {{
-            color: {COLORS['text_primary']} !important;
-        }}
-
-        /* Progress bars - brutalist style */
-        .stProgress > div > div {{
-            background: linear-gradient(90deg, {COLORS['success_green']} 0%, {COLORS['warning_orange']} 50%, {COLORS['primary_red']} 100%) !important;
-            border: 2px solid {COLORS['border_heavy']} !important;
-        }}
-
-        /* Cards and containers */
-        .stCard, .stContainer {{
-            background: {COLORS['bg_panel']} !important;
-            border: 3px solid {COLORS['border_heavy']} !important;
-            border-radius: 0px !important;
-            box-shadow: 5px 5px 0px {COLORS['shadow']} !important;
-        }}
-
-        /* Input fields */
-        .stTextInput input {{
-            border: 3px solid {COLORS['border_heavy']} !important;
-            border-radius: 0px !important;
-            font-family: {FONTS['primary']} !important;
-        }}
-
-        /* Lucide Icons integration */
-        .lucide-icon {{
-            display: inline-block !important;
-            width: 1em !important;
-            height: 1em !important;
-            vertical-align: middle !important;
-        }}
-    </style>
-    """
-
 # Apply styles
 st.markdown(get_css_styles(), unsafe_allow_html=True)
 
-# Initialize Lucide Icons - Fix for sidebar button
-st.markdown("""
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Lucide icons
-    if (typeof lucide !== 'undefined' && lucide.createIcons) {
-        lucide.createIcons();
-    }
-
-    // Also initialize after a short delay for dynamic content
-    setTimeout(function() {
-        if (typeof lucide !== 'undefined' && lucide.createIcons) {
-            lucide.createIcons();
-        }
-    }, 100);
-});
-</script>
-""", unsafe_allow_html=True)
+# Initialize basic styling (no external icon dependencies needed)
 
 # ===== MAIN INTERFACE TABS =====
 tab1, tab2, tab3 = st.tabs([
-    f"{lucide_icon(ICONS['zap'], size='1.2em')} **DOOM CALCULATOR**",
-    f"{lucide_icon(ICONS['graduation'], size='1.2em')} **RETRAIN ME**",
-    f"{lucide_icon(ICONS['shield'], size='1.2em')} **SURVIVAL GUIDE**"
+    f"⚡ **DOOM CALCULATOR**",
+    f"🎓 **RETRAIN ME**",
+    f"🛡️ **SURVIVAL GUIDE**"
 ])
 
 with tab1:
     # Header - Brutalist style
-    st.markdown(f'<div class="skull-title">{lucide_icon(ICONS["skull"], size="2.5em")}JOB DOOM CALCULATOR</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="skull-title">💀 JOB DOOM CALCULATOR</div>', unsafe_allow_html=True)
     st.markdown(f'<p style="color: {COLORS["text_primary"]}; font-family: {FONTS["primary"]}; font-size: 1.1em; margin-top: 10px;">*Find out how doomed you are (scientifically)*</p>', unsafe_allow_html=True)
 
     # Sidebar
@@ -362,13 +127,13 @@ if analyze_btn and job_title:
                 risk = data["risk_score"]
                 if risk > 60:
                     doom_class = "doom-high"
-                    doom_icon = lucide_icon(ICONS['skull'], size='3em')
+                    doom_icon = "💀"
                 elif risk > 35:
                     doom_class = "doom-medium"
-                    doom_icon = lucide_icon(ICONS['warning'], size='3em')
+                    doom_icon = "⚠️"
                 else:
                     doom_class = "doom-low"
-                    doom_icon = lucide_icon(ICONS['success'], size='3em')
+                    doom_icon = "✅"
 
                 st.markdown(f"""
                 <div class="big-doom {doom_class}">
@@ -387,9 +152,9 @@ if analyze_btn and job_title:
                                     else COLORS['warning_orange'] if progress > 0.5
                                     else COLORS['success_green'])
 
-                    skull_icon = lucide_icon(ICONS['skull'], size='3em')
-                    warning_icon = lucide_icon(ICONS['warning'], size='2em')
-                    success_icon = lucide_icon(ICONS['success'], size='2em')
+                    skull_icon = UI_ELEMENTS['skull']
+                    warning_icon = UI_ELEMENTS['warning']
+                    success_icon = UI_ELEMENTS['success']
 
                     return f"""
                     <div style="margin: 20px 0; padding: 25px; background: {COLORS['bg_panel']}; border: 5px solid {COLORS['border_heavy']}; border-radius: 0px; box-shadow: 8px 8px 0px {COLORS['shadow']};">
@@ -406,7 +171,7 @@ if analyze_btn and job_title:
                             </div>
                         </div>
                         <div style="text-align: center; margin-top: 20px;">
-                            {f'<button class="doom-button" onclick="showTotalDoom()">{lucide_icon(ICONS["zap"], size="1.5em")} TOTAL DOOM ACTIVATED!</button>' if progress >= 1.0 else f'<button class="doom-button-disabled" disabled>{lucide_icon(ICONS["warning"], size="1.5em")} Need {100 - data["automation_progress"]:.0f}% more automation for Total Doom</button>'}
+                            {f'<button class="doom-button" onclick="showTotalDoom()">{UI_ELEMENTS["doom"]} TOTAL DOOM ACTIVATED!</button>' if progress >= 1.0 else f'<button class="doom-button-disabled" disabled>{UI_ELEMENTS["warning"]} Need {100 - data["automation_progress"]:.0f}% more automation for Total Doom</button>'}
                         </div>
                     </div>
 
@@ -422,11 +187,11 @@ if analyze_btn and job_title:
 
                 # Share button
                 st.markdown("---")
-                share_text = f"My job is {risk}% automated {lucide_icon(ICONS['skull'], size='1em')} What's yours? #JobDoomCalculator"
+                share_text = f"My job is {risk}% automated {UI_ELEMENTS['skull']} What's yours? #JobDoomCalculator"
                 st.markdown(f"""
                 <a href="https://twitter.com/intent/tweet?text={share_text}" target="_blank">
                     <button style="background: {COLORS['primary_red']}; color: {COLORS['text_white']}; border: 4px solid {COLORS['border_heavy']}; padding: 15px 25px; border-radius: 0px; cursor: pointer; font-family: {FONTS['heading']}; font-weight: 900; font-size: 1.1em; text-transform: uppercase; box-shadow: 5px 5px 0px {COLORS['text_primary']}; transition: all 0.2s ease;">
-                        {lucide_icon(ICONS['share'], size='1.5em')} SHARE YOUR DOOM
+                        {UI_ELEMENTS['share']} SHARE YOUR DOOM
                     </button>
                 </a>
                 """, unsafe_allow_html=True)
@@ -436,7 +201,7 @@ if analyze_btn and job_title:
                 st.markdown("###  **SURVIVAL RESOURCES**")
 
                 # Career pivots and retraining
-                with st.expander(f"{lucide_icon(ICONS['warning'], size='1.5em')} CAREER PIVOTS & RETRAINING"):
+                with st.expander(f"{UI_ELEMENTS['warning']} CAREER PIVOTS & RETRAINING"):
                     st.markdown("""
                     **🎓 Online Learning Platforms:**
                     - **[Coursera](https://www.coursera.org)** - Thousands of courses from top universities
@@ -445,7 +210,7 @@ if analyze_btn and job_title:
                     - **[Google Career Certificates](https://grow.google/certificates)** - Job-ready skills in 6 months
                     """)
 
-                with st.expander(f"{lucide_icon(ICONS['info'], size='1.5em')} JOB TRANSITION TOOLS"):
+                with st.expander(f"{UI_ELEMENTS['info']} JOB TRANSITION TOOLS"):
                     st.markdown("""
                     **Career Exploration:**
                     - **[Indeed Career Guide](https://www.indeed.com/career-advice)** - Step-by-step career change guidance
@@ -454,7 +219,7 @@ if analyze_btn and job_title:
                     - **[O*NET Online](https://www.onetonline.org)** - Detailed occupation database
                     """)
 
-                with st.expander(f"{lucide_icon(ICONS['zap'], size='1.5em')} FUTURE-PROOF SKILLS"):
+                with st.expander(f"{UI_ELEMENTS['doom']} FUTURE-PROOF SKILLS"):
                     st.markdown("""
                     **🤖 High-Demand Skills:**
                     - **[AI Ethics & Policy](https://www.coursera.org/specializations/ai-ethics)** - Understand AI governance
@@ -463,7 +228,7 @@ if analyze_btn and job_title:
                     - **[UX/UI Design](https://www.coursera.org/specializations/ux-design)** - User experience design
                     """)
 
-                with st.expander(f"{lucide_icon(ICONS['share'], size='1.5em')} UNIVERSAL BASIC INCOME (UBI)"):
+                with st.expander(f"{UI_ELEMENTS['share']} UNIVERSAL BASIC INCOME (UBI)"):
                     st.markdown("""
                     ** UBI Information & Advocacy:**
                     - **[Basic Income Earth Network](https://basicincome.org)** - Global UBI research and advocacy
@@ -472,7 +237,7 @@ if analyze_btn and job_title:
                     - **[Andrew Yang's Freedom Dividend](https://www.yang2020.com/policies/the-freedom-dividend/)** - $1,000/month for every American adult
                     """)
 
-                with st.expander(f"{lucide_icon(ICONS['info'], size='1.5em')} BOOKS ON THE FUTURE OF WORK"):
+                with st.expander(f"{UI_ELEMENTS['info']} BOOKS ON THE FUTURE OF WORK"):
                     st.markdown("""
                     ** Essential Reading:**
                     - **"The Second Machine Age"** by Brynjolfsson & McAfee - How digital technologies are transforming work
@@ -486,8 +251,8 @@ if analyze_btn and job_title:
                 st.markdown("### **DON'T PANIC—RECALCULATE**")
 
                 # Skill-Based Pivots
-                with st.expander(f"{lucide_icon(ICONS['zap'], size='1.5em')} SKILL-BASED PIVOTS"):
-                    st.markdown("**💡 Your skills overlap with these careers:**")
+                with st.expander(f"{UI_ELEMENTS['doom']} SKILL-BASED PIVOTS"):
+                    st.markdown("** Your skills overlap with these careers:**")
 
                     # Mock skill overlap data (in real implementation, this would come from backend)
                     skill_pivots = [
@@ -506,7 +271,7 @@ if analyze_btn and job_title:
                         """)
 
                 # Automation-Compatible Roles
-                with st.expander(f"{lucide_icon(ICONS['settings'], size='1.5em')} AUTOMATION-COMPATIBLE ROLES"):
+                with st.expander(f"{UI_ELEMENTS['settings']} AUTOMATION-COMPATIBLE ROLES"):
                     st.markdown("**🤖 Jobs that work WITH automation, not against it:**")
 
                     compatible_roles = [
@@ -540,8 +305,8 @@ if analyze_btn and job_title:
                         """)
 
                 # Side Income & Self-Reliance
-                with st.expander(f"{lucide_icon(ICONS['trending-up'], size='1.5em')} SIDE INCOME & SELF-RELIANCE"):
-                    st.markdown("**💰 Build multiple income streams for security:**")
+                with st.expander(f"{UI_ELEMENTS['trending-up']} SIDE INCOME & SELF-RELIANCE"):
+                    st.markdown("** Build multiple income streams for security:**")
 
                     side_income_ideas = [
                         {
@@ -589,13 +354,13 @@ if analyze_btn and job_title:
 
 # ===== REEDUCATION MODE TAB =====
 with tab2:
-    st.markdown(f'<div class="skull-title">{lucide_icon(ICONS["graduation"], size="2.5em")}RETRAIN ME</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="skull-title">{UI_ELEMENTS["graduation"]}RETRAIN ME</div>', unsafe_allow_html=True)
     st.markdown("*Build skills for the future of work*")
 
     st.markdown("---")
 
     # Skill Gap Calculator
-    st.markdown("### 🎯 **SKILL GAP CALCULATOR**")
+    st.markdown("### **SKILL GAP CALCULATOR**")
 
     target_role = st.selectbox(
         "**Choose your target career:**",
@@ -628,14 +393,14 @@ with tab2:
 
         gap_data = skill_gaps.get(target_role, skill_gaps["UX Researcher"])
 
-        st.markdown(f"**📊 Skill Gap Analysis for {target_role}:**")
+        st.markdown(f"** Skill Gap Analysis for {target_role}:**")
         st.progress(gap_data["gap_percentage"] / 100)
         st.caption(f"Gap: {gap_data['gap_percentage']}% - You need to learn {len(gap_data['gap_skills'])} new skills")
 
         col1, col2 = st.columns(2)
 
         with col1:
-            st.markdown("**✅ Your Current Skills:**")
+            st.markdown("** Your Current Skills:**")
             for skill in gap_data["current_skills"]:
                 st.markdown(f"- {skill}")
 
@@ -648,7 +413,7 @@ with tab2:
         st.markdown("### 📚 **RETRAINING PROGRAMS**")
 
         # Online Programs
-        with st.expander(f"{lucide_icon(ICONS['book'], size='1.5em')} ONLINE COURSES & CERTIFICATIONS"):
+        with st.expander(f"{UI_ELEMENTS['book']} ONLINE COURSES & CERTIFICATIONS"):
             st.markdown("**🎓 Structured Learning Paths:**")
 
             programs = [
@@ -689,8 +454,8 @@ with tab2:
                 st.markdown("")
 
         # Free Resources
-        with st.expander(f"{lucide_icon(ICONS['heart'], size='1.5em')} FREE LEARNING RESOURCES"):
-            st.markdown("**📖 No-cost ways to learn:**")
+        with st.expander(f"{UI_ELEMENTS['heart']} FREE LEARNING RESOURCES"):
+            st.markdown("** No-cost ways to learn:**")
 
             free_resources = [
                 {
@@ -726,8 +491,8 @@ with tab2:
                 st.markdown("")
 
         # Government & Apprenticeship Programs
-        with st.expander(f"{lucide_icon(ICONS['shield'], size='1.5em')} GOVERNMENT & APPRENTICESHIP PROGRAMS"):
-            st.markdown("**🏛️ Official Training Programs:**")
+        with st.expander(f"{UI_ELEMENTS['shield']} GOVERNMENT & APPRENTICESHIP PROGRAMS"):
+            st.markdown("** Official Training Programs:**")
 
             government_programs = [
                 {
@@ -758,14 +523,14 @@ with tab2:
 
 # ===== SURVIVAL GUIDE TAB =====
 with tab3:
-    st.markdown(f'<div class="skull-title">{lucide_icon(ICONS["shield"], size="2.5em")}SURVIVAL GUIDE</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="skull-title">{UI_ELEMENTS["shield"]}SURVIVAL GUIDE</div>', unsafe_allow_html=True)
     st.markdown("*Practical resources for economic transition and personal well-being*")
 
     st.markdown("---")
 
     # UBI & Government Support
-    with st.expander(f"{lucide_icon(ICONS['shield'], size='1.5em')} GOVERNMENT SUPPORT & UBI"):
-        st.markdown("**💰 Universal Basic Income & Social Safety Nets:**")
+    with st.expander(f"{UI_ELEMENTS['shield']} GOVERNMENT SUPPORT & UBI"):
+        st.markdown("**Universal Basic Income & Social Safety Nets:**")
 
         st.markdown("""
         **🇺🇸 U.S. Government Benefits:**
@@ -836,7 +601,7 @@ with tab3:
             st.markdown("")
 
     # Existential Toolkit
-    with st.expander(f"{lucide_icon(ICONS['heart'], size='1.5em')} EXISTENTIAL TOOLKIT"):
+    with st.expander(f"{UI_ELEMENTS['heart']} EXISTENTIAL TOOLKIT"):
         st.markdown("**🧘 Mental Health & Spiritual Resources:**")
 
         st.markdown("""

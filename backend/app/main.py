@@ -4,15 +4,18 @@ from app.models import JobRiskResponse, JobSearchRequest
 from app.data_loader import DataLoader
 from app.similarity import JobSimilarityEngine
 import random
+import os
 
 app = FastAPI(title="Job Doom Calculator API", version="0.1.0")
 
-# CORS for frontend
+# CORS for frontend - configurable via environment
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:8501,http://127.0.0.1:8501").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
