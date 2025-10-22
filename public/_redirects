@@ -1,0 +1,4 @@
+# Netlify redirects
+/app https://p-doomsday-dashboard.streamlit.app 302
+/calculator https://p-doomsday-dashboard.streamlit.app 302
+

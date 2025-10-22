@@ -1,7 +1,14 @@
 [build]
   publish = "public"
-  command = "echo 'Static site - no build required'"
-  ignore = "/bin/false"
+  command = "echo 'Static HTML site'"
+  
+# Don't try to build anything
+[build.environment]
+  NODE_VERSION = "20"
+  
+# Ignore all files except public/
+[build.processing]
+  skip_processing = true
 
 [[redirects]]
   from = "/app"

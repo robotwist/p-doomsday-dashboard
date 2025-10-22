@@ -1,0 +1,8 @@
+# Ignore everything except public/
+backend/
+frontend/
+.specstory/
+.git/
+*.md
+!public/
+
