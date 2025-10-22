@@ -3,7 +3,7 @@
 A brutalist web application that calculates your job's automation risk with dark humor and practical survival resources.
 
 **Live Demo**: [https://p-doomsday-dashboard.streamlit.app](https://p-doomsday-dashboard.streamlit.app) (Streamlit)  
-**Landing Page**: [Your Netlify URL] (Static HTML)
+**Landing Page**: https://job-doom-index.netlify.app/
 
 ## Overview
 
