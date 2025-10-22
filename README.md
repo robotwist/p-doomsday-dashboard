@@ -231,21 +231,27 @@ API_URL=http://localhost:8000
 
 ## Deployment
 
-### Backend (Heroku/Railway/Render)
-```bash
-# Set environment variables
-ALLOWED_ORIGINS=https://your-frontend-domain.com
+This project uses a **hybrid deployment strategy**:
 
-# Deploy using your platform's CLI or Git integration
-```
+### Static Landing Page (Netlify)
+The `public/` folder contains a static HTML landing page.
+- **Deploy to**: Netlify (drag & drop or GitHub integration)
+- **Publish directory**: `public`
+- **No build command needed** - it's pure HTML/CSS
 
-### Frontend (Netlify/Streamlit Cloud)
-```bash
-# Set environment variables
-API_URL=https://your-backend-domain.com
+### Streamlit App (Streamlit Community Cloud)
+The `frontend/` folder contains the main Streamlit application.
+- **Deploy to**: [Streamlit Community Cloud](https://streamlit.io/cloud)
+- **Main file**: `frontend/app.py`
+- **Requirements**: `frontend/requirements.txt`
 
-# Deploy using platform-specific methods
-```
+### Backend API (Heroku/Railway/Render)
+The `backend/` folder contains the FastAPI application.
+- **Deploy to**: Railway, Render, or Heroku
+- **Requirements**: `backend/requirements.txt`
+- **Set environment variable**: `ALLOWED_ORIGINS=https://your-frontend-domain.com`
+
+See `DEPLOYMENT.md` for detailed deployment instructions.
 
 ## Contributing
 

@@ -727,6 +727,6 @@ st.markdown(f"""
         <p>• Frey & Osborne (2013) Research</p>
         <p>• Advanced Algorithm Analysis</p>
     </div>
-    <p style="margin-top: 20px; color: {COLORS["text_primary"]}; font-family: {FONTS["heading"]}; font-weight: 900; font-size: 1.1em;">Stay ahead of the automation curve! 🚀</p>
+    <p style="margin-top: 20px; color: {COLORS["text_primary"]}; font-family: {FONTS["heading"]}; font-weight: 900; font-size: 1.1em;">Stay ahead of the automation curve!</p>
 </div>
 """, unsafe_allow_html=True)

@@ -1,6 +1,7 @@
 [build]
   publish = "public"
-  command = "echo 'No build step required for static site'"
+  command = "echo 'Static site - no build required'"
+  ignore = "/bin/false"
 
 [[redirects]]
   from = "/app"
