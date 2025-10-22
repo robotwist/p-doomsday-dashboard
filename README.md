@@ -2,9 +2,14 @@
 
 A brutalist web application that calculates your job's automation risk with dark humor and practical survival resources.
 
+**Live Demo**: [https://p-doomsday-dashboard.streamlit.app](https://p-doomsday-dashboard.streamlit.app) (Streamlit)  
+**Landing Page**: [Your Netlify URL] (Static HTML)
+
 ## Overview
 
 The Job Doom Calculator analyzes job automation risk using data-driven metrics, provides career pivot suggestions, retraining resources, and survival guides for the automated future. Built with a brutal but refined aesthetic and a subtle playful tone.
+
+**Current Status**: Version 1.0 Beta | 23 Professions Available
 
 ## Project Structure
 
@@ -245,25 +250,78 @@ API_URL=http://localhost:8000
 
 This project uses a **hybrid deployment strategy**:
 
-### Static Landing Page (Netlify)
+### 1. Static Landing Page → Netlify ✅
 The `public/` folder contains a static HTML landing page.
-- **Deploy to**: Netlify (drag & drop or GitHub integration)
-- **Publish directory**: `public`
-- **No build command needed** - it's pure HTML/CSS
 
-### Streamlit App (Streamlit Community Cloud)
+**Deploy Steps:**
+```bash
+# Option 1: Netlify Dashboard
+1. Go to https://app.netlify.com
+2. Click "Add new site" → "Import an existing project"
+3. Connect to GitHub: robotwist/p-doomsday-dashboard
+4. Configure:
+   - Build command: (leave empty)
+   - Publish directory: public
+5. Deploy
+
+# Option 2: Drag & Drop
+1. Go to https://app.netlify.com/drop
+2. Drag the `public/` folder
+3. Instant deployment
+```
+
+**Configuration:**
+- No build required (pure HTML/CSS)
+- `netlify.toml` already configured
+- Redirects set up for `/app` → Streamlit
+
+### 2. Streamlit App → Streamlit Community Cloud
 The `frontend/` folder contains the main Streamlit application.
-- **Deploy to**: [Streamlit Community Cloud](https://streamlit.io/cloud)
-- **Main file**: `frontend/app.py`
-- **Requirements**: `frontend/requirements.txt`
 
-### Backend API (Heroku/Railway/Render)
-The `backend/` folder contains the FastAPI application.
-- **Deploy to**: Railway, Render, or Heroku
-- **Requirements**: `backend/requirements.txt`
-- **Set environment variable**: `ALLOWED_ORIGINS=https://your-frontend-domain.com`
+**Deploy Steps:**
+1. Go to [Streamlit Community Cloud](https://streamlit.io/cloud)
+2. Sign in with GitHub
+3. Click "New app"
+4. Configure:
+   - **Repository**: `robotwist/p-doomsday-dashboard`
+   - **Branch**: `main`
+   - **Main file path**: `frontend/app.py`
+   - **App URL**: `p-doomsday-dashboard` (or custom)
+5. Click "Deploy!"
 
-See `DEPLOYMENT.md` for detailed deployment instructions.
+**Environment Variables** (if needed):
+```toml
+API_URL = "https://your-backend-api.herokuapp.com"
+APP_URL = "https://p-doomsday-dashboard.streamlit.app"
+```
+
+### 3. Backend API → Railway/Render (Optional)
+The `backend/` folder contains the FastAPI application (currently runs locally).
+
+**Deploy to Railway:**
+```bash
+cd backend
+railway login
+railway init
+railway up
+# Set: ALLOWED_ORIGINS=https://p-doomsday-dashboard.streamlit.app
+```
+
+**Deploy to Render:**
+1. Go to https://render.com
+2. New → Web Service
+3. Connect repo: `robotwist/p-doomsday-dashboard`
+4. Root Directory: `backend`
+5. Build: `pip install -r requirements.txt`
+6. Start: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+7. Add env var: `ALLOWED_ORIGINS=https://p-doomsday-dashboard.streamlit.app`
+
+### Current Deployment Status
+- ✅ Frontend ready for Streamlit Cloud
+- ✅ Landing page ready for Netlify
+- ⏳ Backend runs locally (deploy when needed)
+
+See `DEPLOYMENT.md` for detailed instructions.
 
 ## Contributing
 
