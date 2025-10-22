@@ -678,7 +678,7 @@ with tab3:
         """)
 
         st.markdown("""
-        **🧘 Non-Religious Mental Health:**
+        ** Non-Religious Mental Health:**
         """)
 
         mental_health_resources = [
