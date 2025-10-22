@@ -185,15 +185,113 @@ if analyze_btn and job_title:
                 st.markdown("### DOOM METER")
                 st.markdown(create_doom_meter(data), unsafe_allow_html=True)
 
-                # Share button
+                # Share section
                 st.markdown("---")
-                share_text = f"My job is {risk}% automated {UI_ELEMENTS['skull']} What's yours? #JobDoomCalculator"
+                st.markdown("### SHARE YOUR RESULTS")
+                
+                # Prepare share data with proper URL encoding
+                from urllib.parse import quote
+                
+                job_title_clean = data["job_title"]
+                share_text = f"My job as a {job_title_clean} is {risk}% automated. What's your automation risk?"
+                share_url = "https://p-doomsday-dashboard.streamlit.app"  # Update this to your actual deployment URL
+                share_hashtags = "JobDoomCalculator,Automation,FutureOfWork"
+                
+                # Encode for URLs
+                encoded_text = quote(share_text)
+                encoded_url = quote(share_url)
+                
+                # Create sharing buttons
                 st.markdown(f"""
-                <a href="https://twitter.com/intent/tweet?text={share_text}" target="_blank">
-                    <button style="background: {COLORS['primary_red']}; color: {COLORS['text_white']}; border: 4px solid {COLORS['border_heavy']}; padding: 15px 25px; border-radius: 0px; cursor: pointer; font-family: {FONTS['heading']}; font-weight: 900; font-size: 1.1em; text-transform: uppercase; box-shadow: 5px 5px 0px {COLORS['text_primary']}; transition: all 0.2s ease;">
-                        {UI_ELEMENTS['share']} SHARE YOUR DOOM
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
+                    <!-- Twitter/X -->
+                    <a href="https://twitter.com/intent/tweet?text={encoded_text}&url={encoded_url}&hashtags={share_hashtags}" 
+                       target="_blank" rel="noopener noreferrer">
+                        <button style="background: #000000; color: #FFFFFF; border: 3px solid {COLORS['border_heavy']}; 
+                                padding: 12px 20px; cursor: pointer; font-family: {FONTS['heading']}; 
+                                font-weight: 700; font-size: 0.95em; text-transform: uppercase; 
+                                box-shadow: 4px 4px 0px {COLORS['shadow']}; transition: all 0.2s ease;">
+                            X / TWITTER
+                        </button>
+                    </a>
+                    
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={encoded_url}" 
+                       target="_blank" rel="noopener noreferrer">
+                        <button style="background: #0077B5; color: #FFFFFF; border: 3px solid {COLORS['border_heavy']}; 
+                                padding: 12px 20px; cursor: pointer; font-family: {FONTS['heading']}; 
+                                font-weight: 700; font-size: 0.95em; text-transform: uppercase; 
+                                box-shadow: 4px 4px 0px {COLORS['shadow']}; transition: all 0.2s ease;">
+                            LINKEDIN
+                        </button>
+                    </a>
+                    
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={encoded_url}&quote={encoded_text}" 
+                       target="_blank" rel="noopener noreferrer">
+                        <button style="background: #1877F2; color: #FFFFFF; border: 3px solid {COLORS['border_heavy']}; 
+                                padding: 12px 20px; cursor: pointer; font-family: {FONTS['heading']}; 
+                                font-weight: 700; font-size: 0.95em; text-transform: uppercase; 
+                                box-shadow: 4px 4px 0px {COLORS['shadow']}; transition: all 0.2s ease;">
+                            FACEBOOK
+                        </button>
+                    </a>
+                    
+                    <!-- Reddit -->
+                    <a href="https://reddit.com/submit?url={encoded_url}&title={encoded_text}" 
+                       target="_blank" rel="noopener noreferrer">
+                        <button style="background: #FF4500; color: #FFFFFF; border: 3px solid {COLORS['border_heavy']}; 
+                                padding: 12px 20px; cursor: pointer; font-family: {FONTS['heading']}; 
+                                font-weight: 700; font-size: 0.95em; text-transform: uppercase; 
+                                box-shadow: 4px 4px 0px {COLORS['shadow']}; transition: all 0.2s ease;">
+                            REDDIT
+                        </button>
+                    </a>
+                    
+                    <!-- Copy Link -->
+                    <button onclick="copyToClipboard()" id="copyButton"
+                            style="background: {COLORS['success_green']}; color: #FFFFFF; border: 3px solid {COLORS['border_heavy']}; 
+                            padding: 12px 20px; cursor: pointer; font-family: {FONTS['heading']}; 
+                            font-weight: 700; font-size: 0.95em; text-transform: uppercase; 
+                            box-shadow: 4px 4px 0px {COLORS['shadow']}; transition: all 0.2s ease;">
+                        COPY LINK
                     </button>
-                </a>
+                </div>
+                
+                <script>
+                function copyToClipboard() {{
+                    const text = "{share_text}\\n\\n{share_url}";
+                    navigator.clipboard.writeText(text).then(function() {{
+                        const btn = document.getElementById('copyButton');
+                        const originalText = btn.innerHTML;
+                        btn.innerHTML = 'COPIED!';
+                        btn.style.background = '{COLORS['primary_red']}';
+                        setTimeout(function() {{
+                            btn.innerHTML = originalText;
+                            btn.style.background = '{COLORS['success_green']}';
+                        }}, 2000);
+                    }}).catch(function(err) {{
+                        alert('Failed to copy: ' + err);
+                    }});
+                }}
+                </script>
+                """, unsafe_allow_html=True)
+                
+                # Email share option
+                email_subject = quote(f"Check out my Job Doom Calculator results!")
+                email_body = quote(f"I just found out my job as a {job_title_clean} is {risk}% automated.\\n\\nFind out your automation risk at: {share_url}")
+                
+                st.markdown(f"""
+                <div style="margin-top: 15px;">
+                    <a href="mailto:?subject={email_subject}&body={email_body}">
+                        <button style="background: {COLORS['bg_secondary']}; color: {COLORS['text_primary']}; 
+                                border: 3px solid {COLORS['border_heavy']}; padding: 10px 18px; cursor: pointer; 
+                                font-family: {FONTS['primary']}; font-weight: 700; font-size: 0.9em; 
+                                text-transform: uppercase; box-shadow: 3px 3px 0px {COLORS['shadow']};">
+                            SHARE VIA EMAIL
+                        </button>
+                    </a>
+                </div>
                 """, unsafe_allow_html=True)
 
                 # ===== RESOURCES SECTION =====
