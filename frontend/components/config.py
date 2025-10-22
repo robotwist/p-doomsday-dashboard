@@ -4,7 +4,7 @@ Configuration management for Job Doom Calculator frontend
 import os
 
 # ===== CONFIGURATION =====
-API_URL = os.getenv("API_URL", "http://localhost:8000")
+API_URL = os.getenv("API_URL", "https://p-doomsday-backend-785eba1da668.herokuapp.com")
 
 # ===== UI ELEMENTS =====
 # Text-based visual markers
