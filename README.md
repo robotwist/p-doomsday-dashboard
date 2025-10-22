@@ -9,7 +9,7 @@ A brutalist web application that calculates your job's automation risk with dark
 
 The Job Doom Calculator analyzes job automation risk using data-driven metrics, provides career pivot suggestions, retraining resources, and survival guides for the automated future. Built with a brutal but refined aesthetic and a subtle playful tone.
 
-**Current Status**: Version 1.0 Beta | 23 Professions Available
+**Current Status**: Version 1.0 Beta | 38 Professions Available
 
 ## Project Structure
 
@@ -176,24 +176,37 @@ List all available jobs in the database
 
 ## Sample Data
 
-The application currently includes 23 professions across diverse industries:
+The application currently includes **38 professions** across diverse industries with risk scores from **11% to 85%**:
 
-**Technology & Business:**
-- Software Engineer, Data Analyst, Marketing Manager, HR Manager, Financial Advisor
+**Technology & Development (7):**
+- Software Engineer, Data Analyst, Web Developer, UX Designer, Mechanical Engineer, Civil Engineer, Project Manager
 
-**Healthcare:**
-- Registered Nurse, Mental Health Therapist, Pharmacist, Physical Therapist, Social Worker
+**Healthcare & Wellness (7):**
+- Registered Nurse, Mental Health Therapist, Pharmacist, Physical Therapist, Social Worker, Dental Hygienist, Veterinarian, Radiologic Technologist
 
-**Creative & Professional:**
-- Graphic Designer, Journalist, Copywriter, Lawyer, Paralegal
+**Creative & Media (5):**
+- Graphic Designer, Journalist, Copywriter, Video Editor, Yoga Instructor
 
-**Skilled Trades:**
-- Electrician, Plumber, Automotive Mechanic, Construction Manager, Chef
+**Professional Services (8):**
+- Lawyer, Paralegal, Accountant, Financial Advisor, HR Manager, Marketing Manager, Recruiter, Landscape Architect
 
-**Education & Services:**
-- High School Teacher, Real Estate Agent, Accountant, Translator
+**Hospitality & Personal Services (5):**
+- Chef, Hairdresser, Bartender, Personal Trainer, Wedding Planner
 
-Each profession includes realistic automation risk scores (12-79%), detailed task breakdowns, skill requirements, and specific technology threats.
+**Skilled Trades & Operations (6):**
+- Electrician, Plumber, Automotive Mechanic, Construction Manager, Warehouse Worker, Air Traffic Controller
+
+**Administrative & Support (5):**
+- Administrative Assistant, Executive Assistant, Customer Service Representative, Retail Salesperson, Insurance Underwriter
+
+**Education & Public Service (2):**
+- High School Teacher, Police Officer, Real Estate Agent, Translator
+
+Each profession includes:
+- Realistic automation risk scores
+- Detailed automatable vs. human-required tasks
+- Specific technology threats currently replacing workers
+- Skill vectors for career pivot matching
 
 ## Security & Configuration
 

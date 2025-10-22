@@ -323,6 +323,294 @@ class DataLoader:
             "skills": ["Writing", "Creativity", "Marketing", "Persuasion", "Brand Understanding"],
             "tech_threats": ["ChatGPT", "Jasper.ai", "Copy.ai", "Claude", "Writesonic"],
             "skill_vector": [0.7, 0.7, 0.6, 0.6, 0.5]
+        },
+        "customer_service_rep": {
+            "title": "Customer Service Representative",
+            "risk_score": 76.4,
+            "onet_code": "43-4051.00",
+            "tasks": {
+                "automatable": ["Answer FAQs", "Process returns", "Check order status", "Password resets", "Basic troubleshooting"],
+                "human_required": ["Handle angry customers", "Complex complaints", "Empathy in crisis", "Upselling judgment calls"]
+            },
+            "skills": ["Communication", "Problem Solving", "Patience", "Product Knowledge", "Conflict Resolution"],
+            "tech_threats": ["ChatGPT customer service", "Intercom AI", "Zendesk bots", "Ada chatbots"],
+            "skill_vector": [0.4, 0.5, 0.7, 0.6, 0.4]
+        },
+        "warehouse_worker": {
+            "title": "Warehouse Worker",
+            "risk_score": 85.2,
+            "onet_code": "53-7065.00",
+            "tasks": {
+                "automatable": ["Picking items", "Packing boxes", "Inventory scanning", "Moving pallets", "Label printing"],
+                "human_required": ["Handling fragile items", "Quality inspection", "Loading irregular shapes", "Equipment maintenance"]
+            },
+            "skills": ["Physical Stamina", "Attention to Detail", "Forklift Operation", "Inventory Management", "Safety"],
+            "tech_threats": ["Amazon robots", "Fetch Robotics", "Automated picking systems", "Kiva warehouse bots"],
+            "skill_vector": [0.2, 0.3, 0.4, 0.5, 0.4]
+        },
+        "dental_hygienist": {
+            "title": "Dental Hygienist",
+            "risk_score": 22.4,
+            "onet_code": "29-1292.00",
+            "tasks": {
+                "automatable": ["Teeth cleaning", "X-ray imaging", "Cavity detection scans", "Patient record updates"],
+                "human_required": ["Patient education", "Pain management", "Gum disease assessment", "Anxiety management"]
+            },
+            "skills": ["Dental Knowledge", "Patient Care", "Manual Dexterity", "Communication", "Attention to Detail"],
+            "tech_threats": ["AI cavity detection", "Automated cleaning robots", "3D imaging AI", "Remote diagnostics"],
+            "skill_vector": [0.3, 0.4, 0.8, 0.75, 0.7]
+        },
+        "civil_engineer": {
+            "title": "Civil Engineer",
+            "risk_score": 36.8,
+            "onet_code": "17-2051.00",
+            "tasks": {
+                "automatable": ["CAD drawings", "Load calculations", "Code compliance checks", "Traffic modeling"],
+                "human_required": ["Site assessments", "Stakeholder negotiations", "Design innovation", "Crisis problem solving"]
+            },
+            "skills": ["Engineering Design", "AutoCAD", "Project Management", "Problem Solving", "Structural Analysis"],
+            "tech_threats": ["BIM automation", "AI structural analysis", "Generative design", "Autodesk AI"],
+            "skill_vector": [0.6, 0.7, 0.6, 0.7, 0.5]
+        },
+        "hairdresser": {
+            "title": "Hairdresser",
+            "risk_score": 11.4,
+            "onet_code": "39-5012.00",
+            "tasks": {
+                "automatable": ["Appointment booking", "Product recommendations", "Color mixing calculations", "Inventory management"],
+                "human_required": ["Custom cutting", "Style consultation", "Client relationship", "Creative vision"]
+            },
+            "skills": ["Hair Cutting", "Customer Service", "Creativity", "Trend Awareness", "Manual Dexterity"],
+            "tech_threats": ["Virtual try-on apps", "Automated color mixing", "AI style recommendations"],
+            "skill_vector": [0.2, 0.3, 0.9, 0.8, 0.85]
+        },
+        "web_developer": {
+            "title": "Web Developer",
+            "risk_score": 51.3,
+            "onet_code": "15-1254.00",
+            "tasks": {
+                "automatable": ["Responsive layouts", "Form creation", "Basic CRUD operations", "CSS styling", "Component libraries"],
+                "human_required": ["Complex architecture", "Performance optimization", "Security implementation", "Client requirements translation"]
+            },
+            "skills": ["JavaScript", "React", "CSS", "Backend APIs", "Problem Solving"],
+            "tech_threats": ["GitHub Copilot", "Vercel v0", "Builder.io", "Webflow AI", "GPT-4 code generation"],
+            "skill_vector": [0.8, 0.85, 0.6, 0.6, 0.55]
+        },
+        "project_manager": {
+            "title": "Project Manager",
+            "risk_score": 43.7,
+            "onet_code": "11-9199.00",
+            "tasks": {
+                "automatable": ["Status reports", "Meeting scheduling", "Task assignment", "Timeline tracking", "Resource allocation"],
+                "human_required": ["Stakeholder management", "Conflict resolution", "Strategic pivots", "Team motivation"]
+            },
+            "skills": ["Project Planning", "Leadership", "Communication", "Agile Methodology", "Risk Management"],
+            "tech_threats": ["Monday.com AI", "Asana automation", "Jira AI", "Microsoft Project AI"],
+            "skill_vector": [0.5, 0.6, 0.8, 0.75, 0.65]
+        },
+        "radiologic_technologist": {
+            "title": "Radiologic Technologist",
+            "risk_score": 33.6,
+            "onet_code": "29-2034.00",
+            "tasks": {
+                "automatable": ["Image capture", "Equipment calibration", "Image quality checks", "Patient positioning assistance"],
+                "human_required": ["Patient communication", "Complex positioning", "Emergency procedures", "Radiation safety judgment"]
+            },
+            "skills": ["Medical Imaging", "Patient Care", "Radiation Safety", "Technical Skills", "Anatomy Knowledge"],
+            "tech_threats": ["AI imaging analysis", "Automated positioning systems", "3D imaging AI", "Remote radiology"],
+            "skill_vector": [0.4, 0.5, 0.75, 0.7, 0.65]
+        },
+        "insurance_underwriter": {
+            "title": "Insurance Underwriter",
+            "risk_score": 82.1,
+            "onet_code": "13-2053.00",
+            "tasks": {
+                "automatable": ["Risk assessment calculations", "Policy pricing", "Document verification", "Claims history analysis", "Credit checks"],
+                "human_required": ["Complex case evaluation", "Negotiation", "Fraud detection intuition", "Unusual risk assessment"]
+            },
+            "skills": ["Risk Analysis", "Financial Math", "Attention to Detail", "Decision Making", "Insurance Knowledge"],
+            "tech_threats": ["Lemonade AI", "Underwriting algorithms", "Predictive analytics", "Machine learning risk models"],
+            "skill_vector": [0.6, 0.7, 0.4, 0.5, 0.3]
+        },
+        "retail_salesperson": {
+            "title": "Retail Salesperson",
+            "risk_score": 72.6,
+            "onet_code": "41-2031.00",
+            "tasks": {
+                "automatable": ["Product recommendations", "Inventory checks", "Price lookups", "Basic transactions", "Stock replenishment"],
+                "human_required": ["Complex customer needs", "Relationship building", "Upselling artistry", "Handling difficult situations"]
+            },
+            "skills": ["Customer Service", "Sales Techniques", "Product Knowledge", "Communication", "Persuasion"],
+            "tech_threats": ["Self-checkout", "E-commerce", "Amazon Go", "AI shopping assistants", "Virtual try-on"],
+            "skill_vector": [0.4, 0.5, 0.6, 0.7, 0.5]
+        },
+        "veterinarian": {
+            "title": "Veterinarian",
+            "risk_score": 14.3,
+            "onet_code": "29-1131.00",
+            "tasks": {
+                "automatable": ["Diagnostic imaging analysis", "Vaccination scheduling", "Lab test interpretation", "Medical records"],
+                "human_required": ["Physical examination", "Surgery", "Animal behavior reading", "Owner communication", "Euthanasia decisions"]
+            },
+            "skills": ["Veterinary Medicine", "Surgery", "Empathy", "Animal Behavior", "Communication"],
+            "tech_threats": ["AI diagnostics", "Telemedicine platforms", "Automated lab analysis"],
+            "skill_vector": [0.2, 0.4, 0.9, 0.85, 0.8]
+        },
+        "mechanical_engineer": {
+            "title": "Mechanical Engineer",
+            "risk_score": 42.1,
+            "onet_code": "17-2141.00",
+            "tasks": {
+                "automatable": ["CAD modeling", "Stress calculations", "Material selection", "Simulation runs", "Technical drawings"],
+                "human_required": ["Creative problem solving", "Prototype testing", "Cross-functional collaboration", "Design innovation"]
+            },
+            "skills": ["CAD Software", "Thermodynamics", "Materials Science", "Problem Solving", "Design"],
+            "tech_threats": ["Generative design AI", "Autodesk Fusion AI", "Simulation automation", "Topology optimization"],
+            "skill_vector": [0.7, 0.75, 0.6, 0.65, 0.55]
+        },
+        "administrative_assistant": {
+            "title": "Administrative Assistant",
+            "risk_score": 78.9,
+            "onet_code": "43-6014.00",
+            "tasks": {
+                "automatable": ["Calendar scheduling", "Email filtering", "Data entry", "Meeting notes", "Travel booking", "Expense reports"],
+                "human_required": ["Executive support", "Crisis triage", "Sensitive communications", "Office culture management"]
+            },
+            "skills": ["Organization", "MS Office", "Communication", "Multitasking", "Discretion"],
+            "tech_threats": ["Calendly", "Microsoft 365 AI", "Notion AI", "x.ai scheduling", "Expensify"],
+            "skill_vector": [0.5, 0.6, 0.5, 0.6, 0.4]
+        },
+        "police_officer": {
+            "title": "Police Officer",
+            "risk_score": 16.8,
+            "onet_code": "33-3051.00",
+            "tasks": {
+                "automatable": ["Traffic monitoring", "License plate scanning", "Report filing", "Crime data analysis"],
+                "human_required": ["De-escalation", "Community relations", "Split-second judgment", "Physical intervention", "Investigation"]
+            },
+            "skills": ["Law Enforcement", "Physical Fitness", "Crisis Management", "Communication", "Judgment Under Pressure"],
+            "tech_threats": ["Automated surveillance", "Predictive policing AI", "Drone patrols", "License plate readers"],
+            "skill_vector": [0.3, 0.4, 0.85, 0.8, 0.75]
+        },
+        "ux_designer": {
+            "title": "UX Designer",
+            "risk_score": 48.2,
+            "onet_code": "15-1255.00",
+            "tasks": {
+                "automatable": ["Wireframe generation", "A/B test setup", "Analytics reporting", "Component design", "Color schemes"],
+                "human_required": ["User research", "Empathy mapping", "Creative problem solving", "Strategic design decisions"]
+            },
+            "skills": ["User Research", "Figma", "Design Thinking", "Psychology", "Prototyping"],
+            "tech_threats": ["Uizard AI", "Galileo AI", "Adobe Firefly", "Framer AI", "v0 by Vercel"],
+            "skill_vector": [0.7, 0.75, 0.65, 0.6, 0.6]
+        },
+        "yoga_instructor": {
+            "title": "Yoga Instructor",
+            "risk_score": 13.7,
+            "onet_code": "39-9031.00",
+            "tasks": {
+                "automatable": ["Class scheduling", "Music playlists", "Pose sequences", "Attendance tracking"],
+                "human_required": ["Individual adjustments", "Reading the room", "Spiritual guidance", "Hands-on corrections", "Building community"]
+            },
+            "skills": ["Yoga Techniques", "Teaching", "Empathy", "Physical Fitness", "Mindfulness"],
+            "tech_threats": ["Peloton yoga", "YouTube classes", "VR yoga apps", "AI pose correction"],
+            "skill_vector": [0.2, 0.3, 0.9, 0.85, 0.8]
+        },
+        "video_editor": {
+            "title": "Video Editor",
+            "risk_score": 59.7,
+            "onet_code": "27-4032.00",
+            "tasks": {
+                "automatable": ["Color correction", "Audio sync", "Subtitle generation", "Basic cuts", "Template-based edits"],
+                "human_required": ["Storytelling pacing", "Creative transitions", "Mood creation", "Director collaboration"]
+            },
+            "skills": ["Video Editing", "Creativity", "Storytelling", "Adobe Premiere", "Color Grading"],
+            "tech_threats": ["Adobe AI", "Descript", "Runway ML", "CapCut AI", "Pictory AI"],
+            "skill_vector": [0.7, 0.65, 0.6, 0.6, 0.55]
+        },
+        "wedding_planner": {
+            "title": "Wedding Planner",
+            "risk_score": 27.3,
+            "onet_code": "13-1121.00",
+            "tasks": {
+                "automatable": ["Vendor databases", "Budget tracking", "Timeline creation", "Guest list management", "RSVP tracking"],
+                "human_required": ["Handling bridezilla meltdowns", "Creative vision", "Crisis management", "Family mediation", "Day-of coordination"]
+            },
+            "skills": ["Event Planning", "Negotiation", "Creativity", "Crisis Management", "People Skills"],
+            "tech_threats": ["Zola", "The Knot AI", "Wedding planning apps", "Automated vendor matching"],
+            "skill_vector": [0.4, 0.5, 0.8, 0.8, 0.7]
+        },
+        "bartender": {
+            "title": "Bartender",
+            "risk_score": 44.8,
+            "onet_code": "35-3011.00",
+            "tasks": {
+                "automatable": ["Drink recipes", "Inventory tracking", "Payment processing", "Standard cocktails"],
+                "human_required": ["Customer entertainment", "Reading the room", "Custom drink creation", "Conflict de-escalation", "Regulars relationships"]
+            },
+            "skills": ["Mixology", "Customer Service", "Multitasking", "Memory", "Social Skills"],
+            "tech_threats": ["Automated cocktail machines", "Self-pour systems", "Makr Shakr robot", "Bartesian"],
+            "skill_vector": [0.5, 0.4, 0.75, 0.7, 0.7]
+        },
+        "personal_trainer": {
+            "title": "Personal Trainer",
+            "risk_score": 26.1,
+            "onet_code": "39-9031.00",
+            "tasks": {
+                "automatable": ["Workout plans", "Progress tracking", "Calorie calculations", "Exercise demonstrations"],
+                "human_required": ["Motivation", "Form correction", "Injury prevention", "Personalized coaching", "Accountability"]
+            },
+            "skills": ["Fitness Knowledge", "Motivation", "Anatomy", "Communication", "Program Design"],
+            "tech_threats": ["Peloton", "Apple Fitness Plus", "Future AI", "Mirror workouts", "AI form correction"],
+            "skill_vector": [0.3, 0.4, 0.8, 0.75, 0.7]
+        },
+        "air_traffic_controller": {
+            "title": "Air Traffic Controller",
+            "risk_score": 32.4,
+            "onet_code": "53-2021.00",
+            "tasks": {
+                "automatable": ["Flight path calculations", "Weather data integration", "Spacing algorithms", "Routine clearances"],
+                "human_required": ["Emergency decisions", "Weather judgment calls", "Pilot communication", "Crisis management under pressure"]
+            },
+            "skills": ["Spatial Awareness", "Decision Making", "Stress Management", "Communication", "Attention to Detail"],
+            "tech_threats": ["Automated traffic systems", "AI collision avoidance", "NextGen automation", "Remote towers"],
+            "skill_vector": [0.4, 0.5, 0.8, 0.85, 0.75]
+        },
+        "recruiter": {
+            "title": "Recruiter",
+            "risk_score": 67.3,
+            "onet_code": "13-1071.00",
+            "tasks": {
+                "automatable": ["Resume screening", "Interview scheduling", "Candidate sourcing", "Email outreach", "Skills matching"],
+                "human_required": ["Cultural fit assessment", "Salary negotiation", "Passive candidate cultivation", "Employer branding"]
+            },
+            "skills": ["Talent Acquisition", "Networking", "Sales", "Communication", "Judgment"],
+            "tech_threats": ["LinkedIn Recruiter AI", "HireVue", "Greenhouse AI", "SeekOut", "Beamery"],
+            "skill_vector": [0.6, 0.65, 0.6, 0.7, 0.5]
+        },
+        "landscape_architect": {
+            "title": "Landscape Architect",
+            "risk_score": 37.9,
+            "onet_code": "17-1012.00",
+            "tasks": {
+                "automatable": ["Site measurements", "Plant database lookups", "3D renderings", "Drainage calculations", "Cost estimates"],
+                "human_required": ["Creative vision", "Client consultation", "Site-specific problem solving", "Ecosystem design"]
+            },
+            "skills": ["Landscape Design", "AutoCAD", "Plant Knowledge", "Creativity", "Environmental Science"],
+            "tech_threats": ["AI landscape design", "Procedural generation", "Virtual reality planning", "Automated rendering"],
+            "skill_vector": [0.6, 0.65, 0.7, 0.65, 0.6]
+        },
+        "executive_assistant": {
+            "title": "Executive Assistant",
+            "risk_score": 68.5,
+            "onet_code": "43-6011.00",
+            "tasks": {
+                "automatable": ["Calendar management", "Email screening", "Travel booking", "Expense reporting", "Meeting prep"],
+                "human_required": ["Anticipating executive needs", "Gatekeeping", "Sensitive negotiations", "Crisis handling", "Political navigation"]
+            },
+            "skills": ["Organization", "Discretion", "Communication", "Anticipation", "Problem Solving"],
+            "tech_threats": ["Microsoft Copilot", "Motion scheduling", "Clara AI", "x.ai", "Reclaim.ai"],
+            "skill_vector": [0.6, 0.65, 0.7, 0.75, 0.5]
         }
     }
 

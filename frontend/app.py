@@ -57,7 +57,7 @@ with st.sidebar:
     """)
 
     st.markdown("---")
-    st.markdown("**Available Jobs (23):**")
+    st.markdown("**Available Jobs (38):**")
     
     # Fetch job list from API
     try:
@@ -879,7 +879,7 @@ st.markdown(f"""
         <p>• Advanced Algorithm Analysis</p>
     </div>
     <div style="margin-top: 20px; font-size: 0.85em; color: {COLORS["text_secondary"]};">
-        <p>Version 1.0 Beta | 23 Professions Available</p>
+        <p>Version 1.0 Beta | 38 Professions Available</p>
         <p>Built with determination and dark humor | <a href="https://github.com/robotwist/p-doomsday-dashboard" style="color: {COLORS["primary_red"]}; text-decoration: none;">View Source</a></p>
     </div>
 </div>
