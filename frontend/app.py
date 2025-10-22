@@ -17,6 +17,9 @@ from components.resources import create_resources_section, create_data_sources_f
 # Alias for backward compatibility
 ICONS = UI_ELEMENTS
 
+# Configuration
+APP_URL = os.getenv("APP_URL", "https://p-doomsday-dashboard.streamlit.app")  # Update this when deployed
+
 # ===== SETUP =====
 st.set_page_config(
     page_title="Job Doom Calculator",
@@ -54,8 +57,24 @@ with st.sidebar:
     """)
 
     st.markdown("---")
-    st.markdown("**Sample Jobs:**")
-    st.markdown("- Software Engineer\n- Truck Driver\n- Nurse\n- Data Analyst\n- Therapist")
+    st.markdown("**Available Jobs (23):**")
+    
+    # Fetch job list from API
+    try:
+        jobs_response = requests.get(f"{API_URL}/jobs", timeout=5)
+        if jobs_response.status_code == 200:
+            jobs_data = jobs_response.json()
+            jobs_list = jobs_data.get("jobs", [])
+            
+            # Display in columns for better readability
+            st.markdown('<div style="font-size: 0.85em; line-height: 1.4;">', unsafe_allow_html=True)
+            for job in sorted(jobs_list):
+                st.markdown(f"- {job}")
+            st.markdown('</div>', unsafe_allow_html=True)
+        else:
+            st.markdown("- Software Engineer\n- Registered Nurse\n- Data Analyst\n- Accountant\n- Teacher\n- Plus 18 more...")
+    except:
+        st.markdown("- Software Engineer\n- Registered Nurse\n- Data Analyst\n- Accountant\n- Teacher\n- Plus 18 more...")
 
     st.markdown("---")
     st.markdown("** RESOURCES FOR THE DOOMED:**")
@@ -194,7 +213,7 @@ if analyze_btn and job_title:
                 
                 job_title_clean = data["job_title"]
                 share_text = f"My job as a {job_title_clean} is {risk}% automated. What's your automation risk?"
-                share_url = "https://p-doomsday-dashboard.streamlit.app"  # Update this to your actual deployment URL
+                share_url = APP_URL
                 share_hashtags = "JobDoomCalculator,Automation,FutureOfWork"
                 
                 # Encode for URLs
@@ -442,13 +461,36 @@ if analyze_btn and job_title:
                         **Examples:** {idea['examples']}
                         """)
 
+            elif response.status_code == 404:
+                st.warning(f"Job not found: **{job_title}**")
+                st.info("Try one of these available jobs:")
+                
+                # Fetch and display available jobs
+                try:
+                    jobs_response = requests.get(f"{API_URL}/jobs", timeout=3)
+                    if jobs_response.status_code == 200:
+                        jobs_list = jobs_response.json().get("jobs", [])
+                        
+                        # Display in 3 columns
+                        cols = st.columns(3)
+                        for idx, job in enumerate(sorted(jobs_list)):
+                            with cols[idx % 3]:
+                                st.markdown(f"- {job}")
+                except:
+                    st.markdown("- Software Engineer\n- Registered Nurse\n- Data Analyst")
             else:
                 error_detail = response.json().get('detail', 'Unknown error')
                 st.error(f"Error: {error_detail}")
 
+        except requests.exceptions.Timeout:
+            st.error("Request timed out. The backend may be slow or unavailable.")
+            st.info("Please try again in a moment.")
+        except requests.exceptions.ConnectionError:
+            st.error("Cannot connect to the backend API.")
+            st.info("The backend service may be starting up. Please wait a moment and try again.")
         except Exception as e:
-            st.error(f"Failed to connect to API: {str(e)}")
-            st.info("Make sure the backend is running on http://localhost:8000")
+            st.error(f"An unexpected error occurred: {str(e)}")
+            st.info("Please try again or contact support if the issue persists.")
 
 # ===== REEDUCATION MODE TAB =====
 with tab2:
@@ -817,6 +859,17 @@ with tab3:
 
 # Footer
 st.markdown("---")
+
+# Feedback section
+with st.expander("FEEDBACK & SUGGESTIONS"):
+    st.markdown("""
+    Help us improve the Job Doom Calculator:
+    
+    - **Report Issues**: [GitHub Issues](https://github.com/robotwist/p-doomsday-dashboard/issues)
+    - **Request a Job**: Open a GitHub issue with your profession
+    - **Share Feedback**: Your input helps us add more professions and improve accuracy
+    """)
+
 st.markdown(f"""
 <div style="text-align: center; padding: 25px; background: {COLORS["bg_panel"]}; border-top: 5px solid {COLORS["border_heavy"]};">
     <h3 style="color: {COLORS["text_primary"]}; font-family: {FONTS["heading"]}; font-weight: 900; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.05em;">DATA SOURCES</h3>
@@ -825,6 +878,9 @@ st.markdown(f"""
         <p>• Frey & Osborne (2013) Research</p>
         <p>• Advanced Algorithm Analysis</p>
     </div>
-    <p style="margin-top: 20px; color: {COLORS["text_primary"]}; font-family: {FONTS["heading"]}; font-weight: 900; font-size: 1.1em;">Stay ahead of the automation curve!</p>
+    <div style="margin-top: 20px; font-size: 0.85em; color: {COLORS["text_secondary"]};">
+        <p>Version 1.0 Beta | 23 Professions Available</p>
+        <p>Built with determination and dark humor | <a href="https://github.com/robotwist/p-doomsday-dashboard" style="color: {COLORS["primary_red"]}; text-decoration: none;">View Source</a></p>
+    </div>
 </div>
 """, unsafe_allow_html=True)

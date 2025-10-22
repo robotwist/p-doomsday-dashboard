@@ -171,12 +171,24 @@ List all available jobs in the database
 
 ## Sample Data
 
-The application currently includes 5 sample jobs:
-- **Software Engineer** (45.2% risk)
-- **Truck Driver** (79.0% risk)
-- **Registered Nurse** (18.5% risk)
-- **Data Analyst** (62.3% risk)
-- **Mental Health Therapist** (12.1% risk)
+The application currently includes 23 professions across diverse industries:
+
+**Technology & Business:**
+- Software Engineer, Data Analyst, Marketing Manager, HR Manager, Financial Advisor
+
+**Healthcare:**
+- Registered Nurse, Mental Health Therapist, Pharmacist, Physical Therapist, Social Worker
+
+**Creative & Professional:**
+- Graphic Designer, Journalist, Copywriter, Lawyer, Paralegal
+
+**Skilled Trades:**
+- Electrician, Plumber, Automotive Mechanic, Construction Manager, Chef
+
+**Education & Services:**
+- High School Teacher, Real Estate Agent, Accountant, Translator
+
+Each profession includes realistic automation risk scores (12-79%), detailed task breakdowns, skill requirements, and specific technology threats.
 
 ## Security & Configuration
 
