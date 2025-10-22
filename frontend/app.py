@@ -57,7 +57,7 @@ with st.sidebar:
     """)
 
     st.markdown("---")
-    st.markdown("**Available Jobs (38):**")
+    st.markdown("**Available Jobs:**")
     
     # Fetch job list from API
     try:
@@ -243,11 +243,11 @@ if analyze_btn and job_title:
                 st.markdown("### DOOM METER")
                 st.markdown(create_doom_meter(data), unsafe_allow_html=True)
 
-                # Share section
+                # Share section - using columns for better rendering
                 st.markdown("---")
                 st.markdown("### SHARE YOUR RESULTS")
                 
-                # Prepare share data with proper URL encoding
+                # Prepare share data
                 import urllib.parse
                 
                 job_title_clean = data["job_title"]
@@ -255,102 +255,38 @@ if analyze_btn and job_title:
                 share_url = APP_URL
                 share_hashtags = "JobDoomCalculator,Automation,FutureOfWork"
                 
-                # Encode for URLs
-                encoded_text = urllib.parse.quote(share_text)
-                encoded_url = urllib.parse.quote(share_url)
+                # URLs for each platform
+                twitter_url = f"https://twitter.com/intent/tweet?text={urllib.parse.quote(share_text)}&url={urllib.parse.quote(share_url)}&hashtags={share_hashtags}"
+                linkedin_url = f"https://www.linkedin.com/sharing/share-offsite/?url={urllib.parse.quote(share_url)}"
+                facebook_url = f"https://www.facebook.com/sharer/sharer.php?u={urllib.parse.quote(share_url)}&quote={urllib.parse.quote(share_text)}"
+                reddit_url = f"https://reddit.com/submit?url={urllib.parse.quote(share_url)}&title={urllib.parse.quote(share_text)}"
                 
-                # Create sharing buttons
-                st.markdown(f"""
-                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
-                    <!-- Twitter/X -->
-                    <a href="https://twitter.com/intent/tweet?text={encoded_text}&url={encoded_url}&hashtags={share_hashtags}" 
-                       target="_blank" rel="noopener noreferrer">
-                        <button style="background: #000000; color: #FFFFFF; border: 3px solid {COLORS['border_heavy']}; 
-                                padding: 12px 20px; cursor: pointer; font-family: {FONTS['heading']}; 
-                                font-weight: 700; font-size: 0.95em; text-transform: uppercase; 
-                                box-shadow: 4px 4px 0px {COLORS['shadow']}; transition: all 0.2s ease;">
-                            X / TWITTER
-                        </button>
-                    </a>
-                    
-                    <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={encoded_url}" 
-                       target="_blank" rel="noopener noreferrer">
-                        <button style="background: #0077B5; color: #FFFFFF; border: 3px solid {COLORS['border_heavy']}; 
-                                padding: 12px 20px; cursor: pointer; font-family: {FONTS['heading']}; 
-                                font-weight: 700; font-size: 0.95em; text-transform: uppercase; 
-                                box-shadow: 4px 4px 0px {COLORS['shadow']}; transition: all 0.2s ease;">
-                            LINKEDIN
-                        </button>
-                    </a>
-                    
-                    <!-- Facebook -->
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={encoded_url}&quote={encoded_text}" 
-                       target="_blank" rel="noopener noreferrer">
-                        <button style="background: #1877F2; color: #FFFFFF; border: 3px solid {COLORS['border_heavy']}; 
-                                padding: 12px 20px; cursor: pointer; font-family: {FONTS['heading']}; 
-                                font-weight: 700; font-size: 0.95em; text-transform: uppercase; 
-                                box-shadow: 4px 4px 0px {COLORS['shadow']}; transition: all 0.2s ease;">
-                            FACEBOOK
-                        </button>
-                    </a>
-                    
-                    <!-- Reddit -->
-                    <a href="https://reddit.com/submit?url={encoded_url}&title={encoded_text}" 
-                       target="_blank" rel="noopener noreferrer">
-                        <button style="background: #FF4500; color: #FFFFFF; border: 3px solid {COLORS['border_heavy']}; 
-                                padding: 12px 20px; cursor: pointer; font-family: {FONTS['heading']}; 
-                                font-weight: 700; font-size: 0.95em; text-transform: uppercase; 
-                                box-shadow: 4px 4px 0px {COLORS['shadow']}; transition: all 0.2s ease;">
-                            REDDIT
-                        </button>
-                    </a>
-                    
-                    <!-- Copy Link -->
-                    <button onclick="copyToClipboard()" id="copyButton"
-                            style="background: {COLORS['success_green']}; color: #FFFFFF; border: 3px solid {COLORS['border_heavy']}; 
-                            padding: 12px 20px; cursor: pointer; font-family: {FONTS['heading']}; 
-                            font-weight: 700; font-size: 0.95em; text-transform: uppercase; 
-                            box-shadow: 4px 4px 0px {COLORS['shadow']}; transition: all 0.2s ease;">
-                        COPY LINK
-                    </button>
-                </div>
+                # Display share buttons in columns
+                col1, col2, col3, col4 = st.columns(4)
                 
-                <script>
-                function copyToClipboard() {{
-                    const text = "{share_text}\\n\\n{share_url}";
-                    navigator.clipboard.writeText(text).then(function() {{
-                        const btn = document.getElementById('copyButton');
-                        const originalText = btn.innerHTML;
-                        btn.innerHTML = 'COPIED!';
-                        btn.style.background = '{COLORS['primary_red']}';
-                        setTimeout(function() {{
-                            btn.innerHTML = originalText;
-                            btn.style.background = '{COLORS['success_green']}';
-                        }}, 2000);
-                    }}).catch(function(err) {{
-                        alert('Failed to copy: ' + err);
-                    }});
-                }}
-                </script>
-                """, unsafe_allow_html=True)
+                with col1:
+                    st.markdown(f'<a href="{twitter_url}" target="_blank"><button style="width: 100%; background: #000000; color: #FFFFFF; border: 3px solid #000; padding: 12px; cursor: pointer; font-weight: 700; text-transform: uppercase;">X / TWITTER</button></a>', unsafe_allow_html=True)
                 
-                # Email share option
-                email_subject = urllib.parse.quote("Check out my Job Doom Calculator results!")
-                email_body = urllib.parse.quote(f"I just found out my job as a {job_title_clean} is {risk}% automated.\\n\\nFind out your automation risk at: {share_url}")
+                with col2:
+                    st.markdown(f'<a href="{linkedin_url}" target="_blank"><button style="width: 100%; background: #0077B5; color: #FFFFFF; border: 3px solid #000; padding: 12px; cursor: pointer; font-weight: 700; text-transform: uppercase;">LINKEDIN</button></a>', unsafe_allow_html=True)
                 
-                st.markdown(f"""
-                <div style="margin-top: 15px;">
-                    <a href="mailto:?subject={email_subject}&body={email_body}">
-                        <button style="background: {COLORS['bg_secondary']}; color: {COLORS['text_primary']}; 
-                                border: 3px solid {COLORS['border_heavy']}; padding: 10px 18px; cursor: pointer; 
-                                font-family: {FONTS['primary']}; font-weight: 700; font-size: 0.9em; 
-                                text-transform: uppercase; box-shadow: 3px 3px 0px {COLORS['shadow']};">
-                            SHARE VIA EMAIL
-                        </button>
-                    </a>
-                </div>
-                """, unsafe_allow_html=True)
+                with col3:
+                    st.markdown(f'<a href="{facebook_url}" target="_blank"><button style="width: 100%; background: #1877F2; color: #FFFFFF; border: 3px solid #000; padding: 12px; cursor: pointer; font-weight: 700; text-transform: uppercase;">FACEBOOK</button></a>', unsafe_allow_html=True)
+                
+                with col4:
+                    st.markdown(f'<a href="{reddit_url}" target="_blank"><button style="width: 100%; background: #FF4500; color: #FFFFFF; border: 3px solid #000; padding: 12px; cursor: pointer; font-weight: 700; text-transform: uppercase;">REDDIT</button></a>', unsafe_allow_html=True)
+                
+                # Copy and email in second row
+                col5, col6, col7 = st.columns([1, 1, 2])
+                
+                with col5:
+                    if st.button("COPY LINK", key="copy_btn", use_container_width=True):
+                        st.success(f"Copy this: {share_text}\n\n{share_url}")
+                
+                with col6:
+                    email_subject = urllib.parse.quote("Check out my Job Doom Calculator results!")
+                    email_body = urllib.parse.quote(f"I just found out my job as a {job_title_clean} is {risk}% automated.\\n\\nFind out your automation risk at: {share_url}")
+                    st.markdown(f'<a href="mailto:?subject={email_subject}&body={email_body}"><button style="width: 100%; background: #666; color: #FFF; border: 3px solid #000; padding: 12px; cursor: pointer; font-weight: 700; text-transform: uppercase;">EMAIL</button></a>', unsafe_allow_html=True)
 
                 # ===== RESOURCES SECTION =====
                 st.markdown("---")
@@ -918,7 +854,7 @@ st.markdown(f"""
         <p>• Advanced Algorithm Analysis</p>
     </div>
     <div style="margin-top: 20px; font-size: 0.85em; color: {COLORS["text_secondary"]};">
-        <p>Version 1.0 Beta | 38 Professions Available</p>
+        <p>Version 1.0 Beta | Multiple Professions Available</p>
         <p>Built with determination and dark humor | <a href="https://github.com/robotwist/p-doomsday-dashboard" style="color: {COLORS["primary_red"]}; text-decoration: none;">View Source</a></p>
     </div>
 </div>
