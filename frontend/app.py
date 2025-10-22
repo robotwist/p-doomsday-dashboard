@@ -209,7 +209,7 @@ if analyze_btn and job_title:
                 st.markdown("### SHARE YOUR RESULTS")
                 
                 # Prepare share data with proper URL encoding
-                from urllib.parse import quote
+                import urllib.parse
                 
                 job_title_clean = data["job_title"]
                 share_text = f"My job as a {job_title_clean} is {risk}% automated. What's your automation risk?"
@@ -217,8 +217,8 @@ if analyze_btn and job_title:
                 share_hashtags = "JobDoomCalculator,Automation,FutureOfWork"
                 
                 # Encode for URLs
-                encoded_text = quote(share_text)
-                encoded_url = quote(share_url)
+                encoded_text = urllib.parse.quote(share_text)
+                encoded_url = urllib.parse.quote(share_url)
                 
                 # Create sharing buttons
                 st.markdown(f"""
@@ -297,8 +297,8 @@ if analyze_btn and job_title:
                 """, unsafe_allow_html=True)
                 
                 # Email share option
-                email_subject = quote(f"Check out my Job Doom Calculator results!")
-                email_body = quote(f"I just found out my job as a {job_title_clean} is {risk}% automated.\\n\\nFind out your automation risk at: {share_url}")
+                email_subject = urllib.parse.quote("Check out my Job Doom Calculator results!")
+                email_body = urllib.parse.quote(f"I just found out my job as a {job_title_clean} is {risk}% automated.\\n\\nFind out your automation risk at: {share_url}")
                 
                 st.markdown(f"""
                 <div style="margin-top: 15px;">
