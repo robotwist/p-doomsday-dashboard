@@ -33,10 +33,11 @@ st.markdown(get_css_styles(), unsafe_allow_html=True)
 # Initialize basic styling (no external icon dependencies needed)
 
 # ===== MAIN INTERFACE TABS =====
-tab1, tab2, tab3 = st.tabs([
+tab1, tab2, tab3, tab4 = st.tabs([
     "DOOM CALCULATOR",
     "RETRAIN ME",
-    "SURVIVAL GUIDE"
+    "SURVIVAL GUIDE",
+    "HUMANITY INDEX"
 ])
 
 with tab1:
@@ -831,6 +832,242 @@ with tab3:
 
         Remember: Automation doesn't eliminate human value - it frees us to focus on creativity, relationships, and meaning.
         """)
+
+# ===== HUMANITY DOOM INDEX TAB =====
+with tab4:
+    st.markdown(f'<div class="skull-title">HUMANITY DOOM INDEX</div>', unsafe_allow_html=True)
+    st.markdown("*Aggregate automation risk across all professions*")
+    
+    st.markdown("---")
+    
+    # Fetch all jobs and calculate aggregate metrics
+    try:
+        jobs_response = requests.get(f"{API_URL}/jobs", timeout=5)
+        if jobs_response.status_code == 200:
+            all_jobs = jobs_response.json().get("jobs", [])
+            
+            # Get risk scores for all jobs
+            job_risks = []
+            for job in all_jobs:
+                try:
+                    response = requests.post(f"{API_URL}/analyze", json={"job_title": job}, timeout=3)
+                    if response.status_code == 200:
+                        job_risks.append({
+                            "job": response.json()["job_title"],
+                            "risk": response.json()["risk_score"]
+                        })
+                except:
+                    continue
+            
+            if job_risks:
+                # Calculate aggregate metrics
+                avg_risk = sum(r["risk"] for r in job_risks) / len(job_risks)
+                high_risk_count = sum(1 for r in job_risks if r["risk"] > 60)
+                medium_risk_count = sum(1 for r in job_risks if 35 < r["risk"] <= 60)
+                low_risk_count = sum(1 for r in job_risks if r["risk"] <= 35)
+                
+                # Display humanity doom score
+                st.markdown(f"""
+                <div style="text-align: center; padding: 40px; background: {COLORS['bg_panel']}; border: 5px solid {COLORS['border_heavy']}; margin: 20px 0; box-shadow: 12px 12px 0px {COLORS['shadow']};">
+                    <h1 style="font-family: {FONTS['heading']}; font-size: 4em; margin: 0; color: {COLORS['primary_red']}; text-transform: uppercase; letter-spacing: 0.05em;">
+                        {avg_risk:.1f}%
+                    </h1>
+                    <h2 style="font-family: {FONTS['heading']}; font-size: 1.8em; margin-top: 15px; color: {COLORS['text_primary']}; text-transform: uppercase;">
+                        HUMANITY AUTOMATION INDEX
+                    </h2>
+                    <p style="font-family: {FONTS['primary']}; font-size: 1.2em; margin-top: 20px; color: {COLORS['text_secondary']};">
+                        Average automation risk across {len(job_risks)} professions
+                    </p>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                # Interpretation
+                st.markdown("### THE VERDICT")
+                
+                if avg_risk > 60:
+                    interpretation = "CRITICAL"
+                    color = COLORS['primary_red']
+                    message = "Humanity is in the danger zone. Most jobs face significant automation risk. Time to adapt or perish."
+                elif avg_risk > 40:
+                    interpretation = "CONCERNING"
+                    color = COLORS['warning_orange']
+                    message = "We're at the tipping point. Automation is accelerating across industries. Preparation is essential."
+                else:
+                    interpretation = "MANAGEABLE"
+                    color = COLORS['success_green']
+                    message = "Many jobs remain safe for now, but the trajectory is clear. Stay vigilant and keep learning."
+                
+                st.markdown(f"""
+                <div style="padding: 25px; background: {COLORS['bg_secondary']}; border: 4px solid {color}; margin: 20px 0;">
+                    <h3 style="color: {color}; font-family: {FONTS['heading']}; text-transform: uppercase; margin-bottom: 15px;">
+                        STATUS: {interpretation}
+                    </h3>
+                    <p style="font-family: {FONTS['primary']}; color: {COLORS['text_primary']}; font-size: 1.1em; line-height: 1.6;">
+                        {message}
+                    </p>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                # Risk distribution
+                st.markdown("### RISK DISTRIBUTION")
+                
+                col1, col2, col3 = st.columns(3)
+                
+                with col1:
+                    st.metric(
+                        "HIGH RISK",
+                        f"{high_risk_count} jobs",
+                        f"{(high_risk_count/len(job_risks)*100):.0f}%",
+                        help="Jobs with 60%+ automation risk"
+                    )
+                
+                with col2:
+                    st.metric(
+                        "MEDIUM RISK",
+                        f"{medium_risk_count} jobs",
+                        f"{(medium_risk_count/len(job_risks)*100):.0f}%",
+                        help="Jobs with 35-60% automation risk"
+                    )
+                
+                with col3:
+                    st.metric(
+                        "LOW RISK",
+                        f"{low_risk_count} jobs",
+                        f"{(low_risk_count/len(job_risks)*100):.0f}%",
+                        help="Jobs with <35% automation risk"
+                    )
+                
+                # Chart of all jobs
+                st.markdown("### ALL PROFESSIONS RANKED")
+                
+                # Sort by risk
+                sorted_risks = sorted(job_risks, key=lambda x: x["risk"], reverse=True)
+                
+                # Create bar chart
+                import plotly.graph_objects as go
+                
+                colors = [
+                    COLORS['primary_red'] if r["risk"] > 60 
+                    else COLORS['warning_orange'] if r["risk"] > 35 
+                    else COLORS['success_green'] 
+                    for r in sorted_risks
+                ]
+                
+                fig = go.Figure(data=[
+                    go.Bar(
+                        x=[r["risk"] for r in sorted_risks],
+                        y=[r["job"] for r in sorted_risks],
+                        orientation='h',
+                        marker=dict(color=colors, line=dict(color='#000000', width=2)),
+                        text=[f'{r["risk"]:.1f}%' for r in sorted_risks],
+                        textposition='outside',
+                    )
+                ])
+                
+                fig.update_layout(
+                    title="Automation Risk by Profession",
+                    xaxis_title="Automation Risk (%)",
+                    yaxis_title="",
+                    height=1200,
+                    showlegend=False,
+                    plot_bgcolor=COLORS['bg_primary'],
+                    paper_bgcolor=COLORS['bg_panel'],
+                    font=dict(family=FONTS['primary'], size=11, color=COLORS['text_primary']),
+                    title_font=dict(family=FONTS['heading'], size=20, color=COLORS['text_primary']),
+                    xaxis=dict(range=[0, 100], gridcolor=COLORS['border_heavy']),
+                    margin=dict(l=200, r=100, t=60, b=40)
+                )
+                
+                st.plotly_chart(fig, use_container_width=True)
+                
+                # Two perspectives
+                st.markdown("---")
+                col_doom, col_hope = st.columns(2)
+                
+                with col_doom:
+                    st.markdown(f"""
+                    <div style="padding: 20px; background: {COLORS['primary_red']}; color: {COLORS['text_white']}; border: 4px solid {COLORS['border_heavy']}; box-shadow: 6px 6px 0px {COLORS['shadow']};">
+                        <h3 style="font-family: {FONTS['heading']}; text-transform: uppercase; margin-bottom: 15px;">
+                            DOOM PERSPECTIVE
+                        </h3>
+                        <p style="font-family: {FONTS['primary']}; line-height: 1.6;">
+                            At {avg_risk:.1f}% average automation, we're accelerating toward mass job displacement. 
+                            {high_risk_count} professions face critical risk. Without intervention, economic chaos awaits.
+                        </p>
+                        <p style="font-family: {FONTS['primary']}; margin-top: 15px; font-weight: 700;">
+                            Path: Universal Basic Income or societal collapse.
+                        </p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                
+                with col_hope:
+                    st.markdown(f"""
+                    <div style="padding: 20px; background: {COLORS['success_green']}; color: {COLORS['text_white']}; border: 4px solid {COLORS['border_heavy']}; box-shadow: 6px 6px 0px {COLORS['shadow']};">
+                        <h3 style="font-family: {FONTS['heading']}; text-transform: uppercase; margin-bottom: 15px;">
+                            OPTIMIST PERSPECTIVE
+                        </h3>
+                        <p style="font-family: {FONTS['primary']}; line-height: 1.6;">
+                            {low_risk_count} professions remain highly human-centric. Automation frees us from drudgery. 
+                            We're headed for permanent vacation - if we plan wisely.
+                        </p>
+                        <p style="font-family: {FONTS['primary']}; margin-top: 15px; font-weight: 700;">
+                            Path: Renaissance of creativity, care, and meaning.
+                        </p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                
+                # Key insights
+                st.markdown("### KEY INSIGHTS")
+                
+                # Most/least automated
+                most_automated = max(job_risks, key=lambda x: x["risk"])
+                least_automated = min(job_risks, key=lambda x: x["risk"])
+                
+                insight_col1, insight_col2 = st.columns(2)
+                
+                with insight_col1:
+                    st.markdown(f"""
+                    **Most Automated Job:**  
+                    {most_automated['job']} at {most_automated['risk']:.1f}%
+                    
+                    **Pattern:** Repetitive, data-heavy, or physical labor jobs face highest risk.
+                    """)
+                
+                with insight_col2:
+                    st.markdown(f"""
+                    **Safest Job:**  
+                    {least_automated['job']} at {least_automated['risk']:.1f}%
+                    
+                    **Pattern:** Human touch, creativity, and empathy are hardest to automate.
+                    """)
+                
+                # Trend projection
+                st.markdown("### WHAT THIS MEANS")
+                
+                st.markdown(f"""
+                With **{avg_risk:.1f}% average automation risk**, we're at a critical juncture:
+                
+                **The Math:**
+                - {high_risk_count} professions ({high_risk_count/len(job_risks)*100:.0f}%) are in the danger zone
+                - {low_risk_count} professions ({low_risk_count/len(job_risks)*100:.0f}%) remain relatively safe
+                - The gap is widening - automation doesn't impact everyone equally
+                
+                **Two Futures:**
+                
+                1. **Dystopia:** Mass unemployment, wealth concentration, social unrest
+                2. **Utopia:** Universal Basic Income, creative renaissance, focus on human connection
+                
+                **The Choice:** How we handle this transition determines which future we get.
+                
+                **What You Can Do:**
+                - If your job is high risk: Start retraining NOW (see RETRAIN ME tab)
+                - If your job is safe: Help others transition (teach, mentor, advocate)
+                - Everyone: Support UBI policies and safety net expansion
+                """)
+                
+    except Exception as e:
+        st.error("Unable to load Humanity Index data. Backend may be unavailable.")
+        st.info(f"Error: {str(e)}")
 
 # Footer
 st.markdown("---")
