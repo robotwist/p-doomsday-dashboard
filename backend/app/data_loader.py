@@ -11,15 +11,14 @@ class DataLoader:
 
     def load_data(self):
         """Load and cache normalized job data"""
-        processed_path = self.data_dir / "processed" / "jobs_normalized.json"
-
-        if processed_path.exists():
-            with open(processed_path, 'r') as f:
-                self.jobs_data = json.load(f)
-        else:
-            # Initial setup: create dummy data structure
-            self.jobs_data = self._create_sample_data()
-            self._save_processed_data()
+        # Always use the latest data from code (for now)
+        # TODO: Switch to loading from file when we have real data pipeline
+        self.jobs_data = self._create_sample_data()
+        
+        # Optionally save for reference
+        # processed_path = self.data_dir / "processed" / "jobs_normalized.json"
+        # if not processed_path.exists():
+        #     self._save_processed_data()
 
     def _create_sample_data(self) -> Dict:
 
