@@ -120,16 +120,55 @@ with st.sidebar:
     - "Automation and the Future of Work" by Aaron Benanav
     """)
 
-# Main input
+# Fetch available jobs for autocomplete
+available_jobs = []
+try:
+    jobs_response = requests.get(f"{API_URL}/jobs", timeout=3)
+    if jobs_response.status_code == 200:
+        available_jobs = sorted(jobs_response.json().get("jobs", []))
+except:
+    # Fallback list if API is unavailable
+    available_jobs = [
+        "Software Engineer", "Data Analyst", "Registered Nurse", "Accountant", 
+        "Graphic Designer", "Teacher", "Pharmacist", "Lawyer", "Marketing Manager",
+        "Customer Service Representative", "Warehouse Worker", "UX Designer"
+    ]
+
+# Main input with selectbox (dropdown with search)
+st.markdown("### ANALYZE YOUR JOB")
+
+input_method = st.radio(
+    "How would you like to find your job?",
+    ["Select from list", "Type manually"],
+    horizontal=True,
+    label_visibility="collapsed"
+)
+
 col1, col2 = st.columns([3, 1])
 with col1:
-    job_title = st.text_input(
-        "Enter your job title",
-        placeholder="e.g., Software Engineer"
-    )
+    if input_method == "Select from list":
+        job_title = st.selectbox(
+            "Choose your profession",
+            options=[""] + available_jobs,
+            index=0,
+            help=f"{len(available_jobs)} professions available"
+        )
+    else:
+        job_title = st.text_input(
+            "Enter your job title",
+            placeholder="e.g., Software Engineer",
+            help="Try to match one of our available professions for best results"
+        )
+        
+        # Show suggestions as you type
+        if job_title:
+            matches = [job for job in available_jobs if job_title.lower() in job.lower()]
+            if matches and len(matches) <= 5:
+                st.caption(f"Did you mean: {', '.join(matches[:5])}")
+
 with col2:
     st.markdown("<br>", unsafe_allow_html=True)
-    analyze_btn = st.button("big(doom)index", type="primary")
+    analyze_btn = st.button("CALCULATE DOOM", type="primary")
 
 if analyze_btn and job_title: 
     with st.spinner("Consulting robot underlords..."):
